@@ -101,7 +101,7 @@ def export_grid():
         writer = csv.writer(f)
         for month_num in sorted(stats.keys()):
             for loc in sorted(stats[month_num].keys()):
-                writer.writerow([f"{month_names[month_num]} — {loc}"])
+                writer.writerow([f"{month_names[month_num]} — {loc}"] + [""] * len(DAYS))
                 writer.writerow(["Hour"] + DAYS)
                 for hour in HOURS:
                     row = [f"{hour:02d}:00"]
