@@ -5,7 +5,10 @@ import time
 import signal
 import sys
 from datetime import datetime
+from zoneinfo import ZoneInfo
 from collections import defaultdict
+
+ET = ZoneInfo("America/New_York")
 
 URL = "https://recsports.osu.edu/fms/Home/GetLocations"
 HEADERS = {
@@ -67,7 +70,7 @@ def print_stats():
 
 
 def poll_once():
-    now = datetime.now()
+    now = datetime.now(ET)
     timestamp = now.strftime("%Y-%m-%d %H:%M:%S")
     day = DAYS[now.weekday()]
     hour = now.hour
