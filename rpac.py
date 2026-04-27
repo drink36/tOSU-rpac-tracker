@@ -50,7 +50,9 @@ def print_stats():
     with open(DATA_FILE, newline="") as f:
         reader = csv.DictReader(f)
         for row in reader:
-            pct = float(row["percent"]) if row["percent"] else 0.0
+            if not row["percent"]:
+                continue
+            pct = float(row["percent"])
             dt = datetime.strptime(row["timestamp"], "%Y-%m-%d %H:%M:%S")
             month_num = dt.month
             month_names[month_num] = dt.strftime("%B")
@@ -91,7 +93,9 @@ def export_grid():
     with open(DATA_FILE, newline="") as f:
         reader = csv.DictReader(f)
         for row in reader:
-            pct = float(row["percent"]) if row["percent"] else 0.0
+            if not row["percent"]:
+                continue
+            pct = float(row["percent"])
             dt = datetime.strptime(row["timestamp"], "%Y-%m-%d %H:%M:%S")
             month_num = dt.month
             month_names[month_num] = dt.strftime("%B")
