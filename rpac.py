@@ -43,30 +43,75 @@ def print_stats():
         print("No data collected yet.")
         return
 
-    stats = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
+    # month_num -> day -> hour -> location -> list of percents
+    stats = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: defaultdict(list))))
+    month_names = {}
 
     with open(DATA_FILE, newline="") as f:
         reader = csv.DictReader(f)
         for row in reader:
             pct = float(row["percent"]) if row["percent"] else 0.0
-            stats[row["day_of_week"]][int(row["hour"])][row["location"]].append(pct)
+            dt = datetime.strptime(row["timestamp"], "%Y-%m-%d %H:%M:%S")
+            month_num = dt.month
+            month_names[month_num] = dt.strftime("%B")
+            stats[month_num][row["day_of_week"]][int(row["hour"])][row["location"]].append(pct)
 
     print("\n" + "=" * 62)
-    print("  RPAC OCCUPANCY STATISTICS (avg % full by day & hour)")
+    print("  RPAC OCCUPANCY BY MONTH (avg % full per day & hour)")
     print("=" * 62)
 
-    for day in DAYS:
-        if day not in stats:
-            continue
-        print(f"\n  {day}:")
-        for hour in sorted(stats[day].keys()):
-            time_label = f"{hour:02d}:00-{hour:02d}:59"
-            for loc, percents in sorted(stats[day][hour].items()):
-                avg = round(sum(percents) / len(percents), 1)
-                bar = "#" * int(avg / 5)
-                print(f"    {time_label}  {loc:<30} {avg:>5}%  [{bar:<20}]  ({len(percents)} samples)")
+    for month_num in sorted(stats.keys()):
+        print(f"\n  {month_names[month_num]}:")
+        for day in DAYS:
+            if day not in stats[month_num]:
+                continue
+            print(f"\n    {day}:")
+            for hour in sorted(stats[month_num][day].keys()):
+                for loc, percents in sorted(stats[month_num][day][hour].items()):
+                    avg = round(sum(percents) / len(percents), 1)
+                    bar = "#" * int(avg / 5)
+                    print(f"      {hour:02d}:00  {loc:<30} {avg:>5}%  [{bar:<20}]  ({len(percents)} samples)")
 
     print("=" * 62 + "\n")
+
+
+GRID_FILE = "rpac_grid.csv"
+HOURS = list(range(24))
+
+
+def export_grid():
+    if not os.path.exists(DATA_FILE):
+        print("No data collected yet.")
+        return
+
+    # month_num -> location -> day -> hour -> list of percents
+    stats = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: defaultdict(list))))
+    month_names = {}
+
+    with open(DATA_FILE, newline="") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            pct = float(row["percent"]) if row["percent"] else 0.0
+            dt = datetime.strptime(row["timestamp"], "%Y-%m-%d %H:%M:%S")
+            month_num = dt.month
+            month_names[month_num] = dt.strftime("%B")
+            stats[month_num][row["location"]][row["day_of_week"]][int(row["hour"])].append(pct)
+
+    with open(GRID_FILE, "w", newline="") as f:
+        writer = csv.writer(f)
+        for month_num in sorted(stats.keys()):
+            for loc in sorted(stats[month_num].keys()):
+                writer.writerow([f"{month_names[month_num]} — {loc}"])
+                writer.writerow(["Hour"] + DAYS)
+                for hour in HOURS:
+                    row = [f"{hour:02d}:00"]
+                    for day in DAYS:
+                        percents = stats[month_num][loc][day].get(hour, [])
+                        row.append(round(sum(percents) / len(percents), 1) if percents else "")
+                    writer.writerow(row)
+                writer.writerow([])  # blank row between sections
+
+    print(f"Grid exported to {os.path.abspath(GRID_FILE)}")
 
 
 def poll_once():
@@ -116,8 +161,10 @@ def loop_mode():
 
 if __name__ == "__main__":
     if "--loop" in sys.argv:
-        # Local continuous mode: python test.py --loop
         loop_mode()
+    elif "--stats" in sys.argv:
+        print_stats()
+    elif "--grid" in sys.argv:
+        export_grid()
     else:
-        # Single-run mode used by GitHub Actions
         poll_once()
