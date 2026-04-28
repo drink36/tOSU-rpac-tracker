@@ -1,6 +1,6 @@
 # RPAC Aquatic Center Occupancy
 
-_Last updated: 2026-04-27 21:57 ET_
+_Last updated: 2026-04-27 23:18 ET_
 
 Average occupancy % by day and hour (8am – 8pm).
 
