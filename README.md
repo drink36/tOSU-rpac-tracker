@@ -2,7 +2,7 @@
 
 Wondering when is the best time to go swimming? This tracker collects live occupancy data from the **Recreation and Physical Activity Center (RPAC)** at **The Ohio State University** every 15 minutes and builds up a historical average so you can find the least crowded times to swim.
 
-_Last updated: 2026-04-28 12:44 ET_
+_Last updated: 2026-04-28 13:24 ET_
 
 Lower % = fewer people in the pool. Empty cells mean no data collected yet for that time slot.
 
@@ -16,7 +16,7 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 | 10:00 | 0.0% | 6.2% |  |  |  |  |  |
 | 11:00 | 12.5% | 6.2% |  |  |  |  |  |
 | 12:00 | 9.3% | 15.6% |  |  |  |  |  |
-| 13:00 | 3.1% |  |  |  |  |  |  |
+| 13:00 | 3.1% | 9.4% |  |  |  |  |  |
 | 14:00 | 12.5% |  |  |  |  |  |  |
 | 15:00 | 9.3% |  |  |  |  |  |  |
 | 16:00 | 21.9% |  |  |  |  |  |  |
@@ -34,7 +34,7 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 | 10:00 | 0.0% | 0.0% |  |  |  |  |  |
 | 11:00 | 4.0% | 0.0% |  |  |  |  |  |
 | 12:00 | 2.0% | 0.0% |  |  |  |  |  |
-| 13:00 | 0.0% |  |  |  |  |  |  |
+| 13:00 | 0.0% | 0.0% |  |  |  |  |  |
 | 14:00 | 0.0% |  |  |  |  |  |  |
 | 15:00 | 0.0% |  |  |  |  |  |  |
 | 16:00 | 0.0% |  |  |  |  |  |  |
@@ -52,7 +52,7 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 | 10:00 | 0.0% | 6.7% |  |  |  |  |  |
 | 11:00 | 0.0% | 0.0% |  |  |  |  |  |
 | 12:00 | 0.0% | 13.3% |  |  |  |  |  |
-| 13:00 | 0.0% |  |  |  |  |  |  |
+| 13:00 | 0.0% | 13.3% |  |  |  |  |  |
 | 14:00 | 0.0% |  |  |  |  |  |  |
 | 15:00 | 0.0% |  |  |  |  |  |  |
 | 16:00 | 0.0% |  |  |  |  |  |  |
@@ -70,7 +70,7 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 | 10:00 | 29.2% | 8.3% |  |  |  |  |  |
 | 11:00 | 20.8% | 16.7% |  |  |  |  |  |
 | 12:00 | 14.6% | 12.5% |  |  |  |  |  |
-| 13:00 | 16.7% |  |  |  |  |  |  |
+| 13:00 | 16.7% | 12.5% |  |  |  |  |  |
 | 14:00 | 10.4% |  |  |  |  |  |  |
 | 15:00 | 14.6% |  |  |  |  |  |  |
 | 16:00 | 37.5% |  |  |  |  |  |  |
@@ -88,7 +88,7 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 | 10:00 | 0.0% | 0.0% |  |  |  |  |  |
 | 11:00 | 0.0% | 0.0% |  |  |  |  |  |
 | 12:00 | 0.0% | 0.0% |  |  |  |  |  |
-| 13:00 | 0.0% |  |  |  |  |  |  |
+| 13:00 | 0.0% | 0.0% |  |  |  |  |  |
 | 14:00 | 0.0% |  |  |  |  |  |  |
 | 15:00 | 0.0% |  |  |  |  |  |  |
 | 16:00 | 0.0% |  |  |  |  |  |  |
