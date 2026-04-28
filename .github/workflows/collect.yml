@@ -14,29 +14,38 @@ env:
 jobs:
   collect:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-      - name: Collect data
-        run: python rpac.py
-
-      - name: Export grid
-        run: python rpac.py --grid
-
-      - name: Commit updated files
+      - run: pip install -r requirements.txt
+      - run: python rpac.py
+      - name: Commit stats
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add rpac_stats.csv rpac_grid.csv
+          git add rpac_stats.csv
           git diff --staged --quiet || git commit -m "data: $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git push
+
+  grid:
+    needs: collect
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - run: python rpac.py --grid
+      - run: python rpac.py --readme
+      - name: Commit grid and readme
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add rpac_grid.csv README.md
+          git diff --staged --quiet || git commit -m "grid: $(date -u '+%Y-%m-%d %H:%M UTC')"
           git push
