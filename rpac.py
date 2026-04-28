@@ -152,7 +152,7 @@ def export_readme():
     updated = datetime.now(ET).strftime("%Y-%m-%d %H:%M ET")
     lines = []
     lines.append("# RPAC Aquatic Center Occupancy\n")
-    lines.append("Wondering when is the best time to go swimming? This tracker collects live occupancy data from the **Recreation and Physical Activity Center (RPAC)** at **Ohio State University** every 15 minutes and builds up a historical average so you can find the least crowded times to swim.\n")
+    lines.append("Wondering when is the best time to go swimming? This tracker collects live occupancy data from the **Recreation and Physical Activity Center (RPAC)** at **The Ohio State University** every 15 minutes and builds up a historical average so you can find the least crowded times to swim.\n")
     lines.append(f"_Last updated: {updated}_\n")
     lines.append("Lower % = fewer people in the pool. Empty cells mean no data collected yet for that time slot.\n")
 
