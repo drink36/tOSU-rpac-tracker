@@ -2,7 +2,7 @@
 
 Wondering when is the best time to go swimming? This tracker collects live occupancy data from the **Recreation and Physical Activity Center (RPAC)** at **The Ohio State University** every 15 minutes and builds up a historical average so you can find the least crowded times to swim.
 
-_Last updated: 2026-05-10 08:03 ET_
+_Last updated: 2026-05-10 08:37 ET_
 
 Lower % = fewer people in the pool. Empty cells mean no data collected yet for that time slot.
 
@@ -11,7 +11,7 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 
 | Hour | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
 |------|-----|-----|-----|-----|-----|-----|-----|
-| 08:00 | 6.2% | 14.1% | 4.7% | 9.3% | 13.5% | 10.2% | 10.4% |
+| 08:00 | 6.2% | 14.1% | 4.7% | 9.3% | 13.5% | 10.2% | 15.6% |
 | 09:00 | 7.8% | 12.5% | 10.9% | 12.5% | 15.6% | 15.6% | 0.0% |
 | 10:00 | 7.8% | 6.2% | 10.4% | 9.4% | 9.4% | 15.7% | 0.0% |
 | 11:00 | 14.1% | 3.1% | 9.3% | 11.5% | 12.5% | 18.7% | 0.0% |
@@ -47,7 +47,7 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 
 | Hour | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
 |------|-----|-----|-----|-----|-----|-----|-----|
-| 08:00 | 5.0% | 13.3% | 3.4% | 10.0% | 0.0% | 0.0% | 22.2% |
+| 08:00 | 5.0% | 13.3% | 3.4% | 10.0% | 0.0% | 0.0% | 33.4% |
 | 09:00 | 16.7% | 6.7% | 13.3% | 6.7% | 3.4% | 8.3% | 0.0% |
 | 10:00 | 10.0% | 6.7% | 8.9% | 0.0% | 0.0% | 0.0% | 0.0% |
 | 11:00 | 3.4% | 3.4% | 13.3% | 6.7% | 4.5% | 6.7% | 0.0% |
@@ -65,7 +65,7 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 
 | Hour | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
 |------|-----|-----|-----|-----|-----|-----|-----|
-| 08:00 | 19.8% | 20.8% | 20.9% | 10.4% | 18.1% | 12.5% | 8.3% |
+| 08:00 | 19.8% | 20.8% | 20.9% | 10.4% | 18.1% | 12.5% | 12.5% |
 | 09:00 | 14.6% | 15.3% | 16.6% | 12.5% | 14.6% | 15.6% | 0.0% |
 | 10:00 | 22.9% | 8.3% | 16.7% | 4.2% | 12.5% | 16.6% | 0.0% |
 | 11:00 | 18.8% | 16.7% | 12.5% | 19.5% | 13.9% | 16.6% | 0.0% |
