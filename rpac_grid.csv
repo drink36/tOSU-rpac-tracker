@@ -271,7 +271,7 @@ Hour,Mon,Tue,Wed,Thu,Fri,Sat,Sun
 June — RPAC Aquatic Center - Class Pool,,,,,,,
 Hour,Mon,Tue,Wed,Thu,Fri,Sat,Sun
 00:00,,,,,,,
-01:00,9.4,,,,,,
+01:00,9.4,0.0,,,,,
 02:00,,,,,,,
 03:00,9.4,,,,,,
 04:00,,,,,,,
@@ -298,7 +298,7 @@ Hour,Mon,Tue,Wed,Thu,Fri,Sat,Sun
 June — RPAC Aquatic Center - Comp Pool,,,,,,,
 Hour,Mon,Tue,Wed,Thu,Fri,Sat,Sun
 00:00,,,,,,,
-01:00,0.0,,,,,,
+01:00,0.0,0.0,,,,,
 02:00,,,,,,,
 03:00,0.0,,,,,,
 04:00,,,,,,,
@@ -325,7 +325,7 @@ Hour,Mon,Tue,Wed,Thu,Fri,Sat,Sun
 June — RPAC Aquatic Center - Hot Tub,,,,,,,
 Hour,Mon,Tue,Wed,Thu,Fri,Sat,Sun
 00:00,,,,,,,
-01:00,33.3,,,,,,
+01:00,33.3,0.0,,,,,
 02:00,,,,,,,
 03:00,33.3,,,,,,
 04:00,,,,,,,
@@ -352,7 +352,7 @@ Hour,Mon,Tue,Wed,Thu,Fri,Sat,Sun
 June — RPAC Aquatic Center - Lap Pool,,,,,,,
 Hour,Mon,Tue,Wed,Thu,Fri,Sat,Sun
 00:00,,,,,,,
-01:00,16.7,,,,,,
+01:00,16.7,0.0,,,,,
 02:00,,,,,,,
 03:00,16.7,,,,,,
 04:00,,,,,,,
@@ -379,7 +379,7 @@ Hour,Mon,Tue,Wed,Thu,Fri,Sat,Sun
 June — RPAC Aquatic Center - Leisure Pool,,,,,,,
 Hour,Mon,Tue,Wed,Thu,Fri,Sat,Sun
 00:00,,,,,,,
-01:00,0.0,,,,,,
+01:00,0.0,0.0,,,,,
 02:00,,,,,,,
 03:00,0.0,,,,,,
 04:00,,,,,,,
