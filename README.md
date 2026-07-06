@@ -2,7 +2,7 @@
 
 Wondering when is the best time to go swimming? This tracker collects live occupancy data from the **Recreation and Physical Activity Center (RPAC)** at **The Ohio State University** every 15 minutes and builds up a historical average so you can find the least crowded times to swim.
 
-_Last updated: 2026-07-06 18:38 ET_
+_Last updated: 2026-07-06 19:46 ET_
 
 Lower % = fewer people in the pool. Empty cells mean no data collected yet for that time slot.
 
@@ -22,7 +22,7 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 | 16:00 | 7.1% | 17.1% | 13.5% | 8.9% | 11.4% | 13.7% | 17.5% |
 | 17:00 | 21.2% | 22.9% | 17.1% | 16.5% | 16.5% | 19.9% | 15.2% |
 | 18:00 | 27.2% | 29.6% | 26.2% | 24.2% | 22.5% | 18.0% | 15.0% |
-| 19:00 | 14.3% | 0.0% | 3.1% | 0.9% | 2.8% | 7.5% | 1.1% |
+| 19:00 | 13.5% | 0.0% | 3.1% | 0.9% | 2.8% | 7.5% | 1.1% |
 | 20:00 | 6.3% | 0.0% | 0.8% | 0.0% | 3.6% | 10.9% | 0.0% |
 
 ## Aquatic Center - Comp Pool
@@ -40,7 +40,7 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 | 16:00 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
 | 17:00 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
 | 18:00 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
-| 19:00 | 3.5% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
+| 19:00 | 3.3% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
 | 20:00 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
 
 ## Aquatic Center - Hot Tub
@@ -58,7 +58,7 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 | 16:00 | 7.3% | 9.7% | 13.3% | 10.3% | 8.9% | 17.4% | 21.6% |
 | 17:00 | 11.1% | 19.2% | 16.9% | 10.0% | 16.1% | 16.5% | 28.6% |
 | 18:00 | 17.1% | 26.2% | 17.1% | 20.4% | 20.0% | 24.3% | 22.1% |
-| 19:00 | 5.5% | 0.0% | 2.7% | 2.9% | 0.0% | 11.9% | 3.9% |
+| 19:00 | 5.2% | 0.0% | 2.7% | 2.9% | 0.0% | 11.9% | 3.9% |
 | 20:00 | 4.7% | 0.0% | 3.3% | 0.0% | 0.0% | 17.8% | 0.0% |
 
 ## Aquatic Center - Lap Pool
@@ -76,7 +76,7 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 | 16:00 | 19.3% | 15.9% | 19.0% | 16.7% | 15.0% | 12.0% | 15.2% |
 | 17:00 | 25.0% | 24.2% | 24.4% | 19.9% | 16.9% | 9.7% | 15.4% |
 | 18:00 | 31.0% | 19.4% | 25.3% | 23.6% | 20.8% | 8.6% | 17.1% |
-| 19:00 | 13.2% | 2.6% | 5.8% | 4.8% | 5.6% | 5.6% | 4.9% |
+| 19:00 | 12.5% | 2.6% | 5.8% | 4.8% | 5.6% | 5.6% | 4.9% |
 | 20:00 | 11.7% | 3.6% | 4.2% | 3.1% | 7.1% | 8.3% | 5.0% |
 
 ## Aquatic Center - Leisure Pool
@@ -94,5 +94,5 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 | 16:00 | 0.5% | 2.3% | 2.2% | 0.2% | 1.8% | 3.9% | 7.8% |
 | 17:00 | 2.5% | 14.4% | 3.7% | 5.0% | 6.6% | 5.7% | 7.4% |
 | 18:00 | 7.7% | 8.7% | 3.4% | 5.3% | 6.7% | 5.4% | 7.8% |
-| 19:00 | 5.3% | 0.0% | 0.0% | 0.0% | 0.0% | 0.4% | 0.0% |
+| 19:00 | 5.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.4% | 0.0% |
 | 20:00 | 4.0% | 0.0% | 0.0% | 0.0% | 0.0% | 1.2% | 0.0% |
