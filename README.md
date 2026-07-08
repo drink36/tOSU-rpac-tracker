@@ -2,7 +2,7 @@
 
 Wondering when is the best time to go swimming? This tracker collects live occupancy data from the **Recreation and Physical Activity Center (RPAC)** at **The Ohio State University** every 15 minutes and builds up a historical average so you can find the least crowded times to swim.
 
-_Last updated: 2026-07-08 17:42 ET_
+_Last updated: 2026-07-08 18:44 ET_
 
 Lower % = fewer people in the pool. Empty cells mean no data collected yet for that time slot.
 
@@ -21,7 +21,7 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 | 15:00 | 4.9% | 3.8% | 8.4% | 8.7% | 5.0% | 13.8% | 13.9% |
 | 16:00 | 7.1% | 15.9% | 12.2% | 8.9% | 11.4% | 13.7% | 17.5% |
 | 17:00 | 21.2% | 23.3% | 17.0% | 16.5% | 16.5% | 19.9% | 15.2% |
-| 18:00 | 27.2% | 29.6% | 26.2% | 24.2% | 22.5% | 18.0% | 15.0% |
+| 18:00 | 27.2% | 29.6% | 25.9% | 24.2% | 22.5% | 18.0% | 15.0% |
 | 19:00 | 13.5% | 0.0% | 3.1% | 0.9% | 2.8% | 7.5% | 1.1% |
 | 20:00 | 6.3% | 0.0% | 0.8% | 0.0% | 3.6% | 10.9% | 0.0% |
 
@@ -57,7 +57,7 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 | 15:00 | 7.8% | 5.2% | 6.7% | 7.4% | 6.0% | 10.2% | 15.6% |
 | 16:00 | 7.3% | 10.6% | 13.3% | 10.3% | 8.9% | 17.4% | 21.6% |
 | 17:00 | 11.1% | 20.0% | 17.1% | 10.0% | 16.1% | 16.5% | 28.6% |
-| 18:00 | 17.1% | 26.2% | 17.1% | 20.4% | 20.0% | 24.3% | 22.1% |
+| 18:00 | 17.1% | 26.2% | 17.3% | 20.4% | 20.0% | 24.3% | 22.1% |
 | 19:00 | 5.2% | 0.0% | 2.7% | 2.9% | 0.0% | 11.9% | 3.9% |
 | 20:00 | 4.7% | 0.0% | 3.3% | 0.0% | 0.0% | 17.8% | 0.0% |
 
@@ -93,6 +93,6 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 | 15:00 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 1.5% | 6.5% |
 | 16:00 | 0.5% | 2.1% | 2.0% | 0.2% | 1.8% | 3.9% | 7.8% |
 | 17:00 | 2.5% | 14.6% | 3.8% | 5.0% | 6.6% | 5.7% | 7.4% |
-| 18:00 | 7.7% | 8.7% | 3.4% | 5.3% | 6.7% | 5.4% | 7.8% |
+| 18:00 | 7.7% | 8.7% | 3.7% | 5.3% | 6.7% | 5.4% | 7.8% |
 | 19:00 | 5.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.4% | 0.0% |
 | 20:00 | 4.0% | 0.0% | 0.0% | 0.0% | 0.0% | 1.2% | 0.0% |
