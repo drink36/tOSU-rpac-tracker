@@ -2,7 +2,7 @@
 
 Wondering when is the best time to go swimming? This tracker collects live occupancy data from the **Recreation and Physical Activity Center (RPAC)** at **The Ohio State University** every 15 minutes and builds up a historical average so you can find the least crowded times to swim.
 
-_Last updated: 2026-07-09 06:32 ET_
+_Last updated: 2026-07-09 09:37 ET_
 
 Lower % = fewer people in the pool. Empty cells mean no data collected yet for that time slot.
 
@@ -12,7 +12,7 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 | Hour | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
 |------|-----|-----|-----|-----|-----|-----|-----|
 | 08:00 | 4.7% | 4.7% | 2.7% | 8.1% | 6.5% | 3.9% | 8.2% |
-| 09:00 | 4.4% | 7.9% | 6.2% | 8.0% | 8.5% | 6.6% | 7.4% |
+| 09:00 | 4.4% | 7.9% | 6.2% | 7.2% | 8.5% | 6.6% | 7.4% |
 | 10:00 | 6.7% | 5.5% | 9.4% | 5.3% | 4.7% | 11.5% | 8.1% |
 | 11:00 | 8.3% | 5.5% | 5.3% | 7.5% | 7.6% | 12.3% | 7.7% |
 | 12:00 | 9.1% | 6.2% | 5.6% | 3.8% | 6.8% | 9.4% | 8.8% |
@@ -48,7 +48,7 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 | Hour | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
 |------|-----|-----|-----|-----|-----|-----|-----|
 | 08:00 | 3.3% | 5.8% | 0.8% | 2.7% | 2.4% | 0.0% | 13.3% |
-| 09:00 | 6.7% | 3.7% | 7.3% | 2.2% | 4.9% | 4.6% | 13.3% |
+| 09:00 | 6.7% | 3.7% | 7.3% | 2.7% | 4.9% | 4.6% | 13.3% |
 | 10:00 | 4.8% | 5.9% | 6.7% | 1.9% | 2.7% | 6.7% | 14.5% |
 | 11:00 | 3.7% | 6.7% | 9.3% | 3.3% | 4.5% | 6.3% | 12.6% |
 | 12:00 | 3.3% | 7.3% | 6.7% | 8.9% | 5.6% | 5.6% | 10.4% |
@@ -66,7 +66,7 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 | Hour | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
 |------|-----|-----|-----|-----|-----|-----|-----|
 | 08:00 | 16.1% | 14.6% | 14.6% | 16.2% | 12.9% | 7.8% | 6.2% |
-| 09:00 | 12.5% | 15.1% | 17.4% | 11.6% | 13.3% | 12.0% | 5.8% |
+| 09:00 | 12.5% | 15.1% | 17.4% | 11.7% | 13.3% | 12.0% | 5.8% |
 | 10:00 | 14.3% | 12.5% | 16.7% | 13.1% | 9.6% | 9.0% | 6.2% |
 | 11:00 | 13.9% | 14.4% | 17.1% | 15.0% | 14.8% | 8.8% | 5.9% |
 | 12:00 | 15.4% | 13.3% | 15.0% | 12.5% | 11.8% | 11.8% | 8.8% |
