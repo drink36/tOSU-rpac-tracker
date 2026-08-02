@@ -563,7 +563,7 @@ Hour,Mon,Tue,Wed,Thu,Fri,Sat,Sun
 20:00,,,,,,0.0,
 21:00,,,,,,,
 22:00,,,,,,,
-23:00,,,,,,,
+23:00,,,,,,0.0,
 
 August — RPAC Aquatic Center - Comp Pool,,,,,,,
 Hour,Mon,Tue,Wed,Thu,Fri,Sat,Sun
@@ -590,7 +590,7 @@ Hour,Mon,Tue,Wed,Thu,Fri,Sat,Sun
 20:00,,,,,,0.0,
 21:00,,,,,,,
 22:00,,,,,,,
-23:00,,,,,,,
+23:00,,,,,,0.0,
 
 August — RPAC Aquatic Center - Hot Tub,,,,,,,
 Hour,Mon,Tue,Wed,Thu,Fri,Sat,Sun
@@ -617,7 +617,7 @@ Hour,Mon,Tue,Wed,Thu,Fri,Sat,Sun
 20:00,,,,,,0.0,
 21:00,,,,,,,
 22:00,,,,,,,
-23:00,,,,,,,
+23:00,,,,,,0.0,
 
 August — RPAC Aquatic Center - Lap Pool,,,,,,,
 Hour,Mon,Tue,Wed,Thu,Fri,Sat,Sun
@@ -644,7 +644,7 @@ Hour,Mon,Tue,Wed,Thu,Fri,Sat,Sun
 20:00,,,,,,0.0,
 21:00,,,,,,,
 22:00,,,,,,,
-23:00,,,,,,,
+23:00,,,,,,0.0,
 
 August — RPAC Aquatic Center - Leisure Pool,,,,,,,
 Hour,Mon,Tue,Wed,Thu,Fri,Sat,Sun
@@ -671,5 +671,5 @@ Hour,Mon,Tue,Wed,Thu,Fri,Sat,Sun
 20:00,,,,,,0.0,
 21:00,,,,,,,
 22:00,,,,,,,
-23:00,,,,,,,
+23:00,,,,,,0.0,
 
