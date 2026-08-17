@@ -2,7 +2,7 @@
 
 Wondering when is the best time to go swimming? This tracker collects live occupancy data from the **Recreation and Physical Activity Center (RPAC)** at **The Ohio State University** every 15 minutes and builds up a historical average so you can find the least crowded times to swim.
 
-_Last updated: 2026-08-17 02:20 ET_
+_Last updated: 2026-08-17 03:32 ET_
 
 Lower % = fewer people in the pool. Empty cells mean no data collected yet for that time slot.
 
