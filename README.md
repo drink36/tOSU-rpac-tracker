@@ -2,7 +2,7 @@
 
 Wondering when is the best time to go swimming? This tracker collects live occupancy data from the **Recreation and Physical Activity Center (RPAC)** at **The Ohio State University** every 15 minutes and builds up a historical average so you can find the least crowded times to swim.
 
-_Last updated: 2026-08-22 08:41 ET_
+_Last updated: 2026-08-22 09:19 ET_
 
 Lower % = fewer people in the pool. Empty cells mean no data collected yet for that time slot.
 
@@ -12,7 +12,7 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 | Hour | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
 |------|-----|-----|-----|-----|-----|-----|-----|
 | 08:00 | 4.5% | 3.6% | 5.4% | 7.0% | 5.6% | 3.0% | 7.0% |
-| 09:00 | 5.7% | 7.5% | 6.2% | 6.5% | 8.8% | 5.4% | 7.0% |
+| 09:00 | 5.7% | 7.5% | 6.2% | 6.5% | 8.8% | 5.8% | 7.0% |
 | 10:00 | 4.3% | 4.3% | 8.5% | 5.4% | 4.2% | 7.2% | 6.6% |
 | 11:00 | 8.6% | 4.0% | 5.7% | 5.8% | 7.1% | 11.3% | 7.0% |
 | 12:00 | 5.8% | 5.4% | 5.8% | 4.7% | 6.2% | 8.3% | 7.3% |
@@ -48,7 +48,7 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 | Hour | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
 |------|-----|-----|-----|-----|-----|-----|-----|
 | 08:00 | 2.4% | 5.0% | 0.6% | 3.6% | 2.9% | 0.0% | 11.2% |
-| 09:00 | 4.5% | 2.7% | 5.4% | 2.9% | 3.9% | 3.3% | 12.2% |
+| 09:00 | 4.5% | 2.7% | 5.4% | 2.9% | 3.9% | 3.2% | 12.2% |
 | 10:00 | 3.6% | 3.6% | 4.9% | 1.2% | 3.3% | 4.2% | 11.5% |
 | 11:00 | 2.6% | 5.2% | 8.3% | 2.2% | 4.5% | 6.1% | 11.2% |
 | 12:00 | 2.5% | 5.7% | 7.1% | 6.2% | 5.6% | 6.2% | 7.5% |
@@ -66,7 +66,7 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 | Hour | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
 |------|-----|-----|-----|-----|-----|-----|-----|
 | 08:00 | 12.9% | 13.5% | 14.0% | 16.3% | 11.6% | 6.0% | 4.5% |
-| 09:00 | 12.8% | 15.5% | 15.1% | 13.1% | 13.7% | 11.2% | 4.4% |
+| 09:00 | 12.8% | 15.5% | 15.1% | 13.1% | 13.7% | 11.6% | 4.4% |
 | 10:00 | 13.3% | 11.2% | 16.3% | 12.9% | 11.0% | 8.3% | 4.2% |
 | 11:00 | 14.1% | 14.3% | 16.4% | 14.7% | 15.0% | 8.0% | 4.0% |
 | 12:00 | 16.1% | 13.4% | 14.9% | 12.8% | 14.7% | 9.9% | 7.4% |
@@ -84,7 +84,7 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 | Hour | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
 |------|-----|-----|-----|-----|-----|-----|-----|
 | 08:00 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 1.6% |
-| 09:00 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.5% | 1.6% |
+| 09:00 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.4% | 1.6% |
 | 10:00 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 1.6% | 1.5% |
 | 11:00 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 3.7% | 2.2% |
 | 12:00 | 0.0% | 0.2% | 0.0% | 0.0% | 0.0% | 3.8% | 0.9% |
