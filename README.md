@@ -2,7 +2,7 @@
 
 Wondering when is the best time to go swimming? This tracker collects live occupancy data from the **Recreation and Physical Activity Center (RPAC)** at **The Ohio State University** every 15 minutes and builds up a historical average so you can find the least crowded times to swim.
 
-_Last updated: 2026-09-30 04:21 ET_
+_Last updated: 2026-09-30 11:08 ET_
 
 Lower % = fewer people in the pool. Empty cells mean no data collected yet for that time slot.
 
@@ -14,7 +14,7 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 | 08:00 | 4.5% | 6.5% | 6.7% | 7.0% | 6.1% | 2.6% | 7.0% |
 | 09:00 | 6.5% | 7.9% | 7.3% | 6.2% | 8.8% | 5.7% | 7.5% |
 | 10:00 | 7.9% | 5.2% | 9.9% | 5.4% | 4.5% | 8.2% | 5.9% |
-| 11:00 | 9.2% | 4.5% | 5.7% | 5.5% | 7.1% | 11.4% | 7.9% |
+| 11:00 | 9.2% | 4.5% | 5.3% | 5.5% | 7.1% | 11.4% | 7.9% |
 | 12:00 | 6.1% | 6.1% | 8.0% | 6.0% | 6.6% | 9.2% | 7.7% |
 | 13:00 | 7.1% | 7.7% | 7.0% | 10.1% | 7.8% | 10.1% | 12.8% |
 | 14:00 | 4.4% | 7.9% | 5.3% | 5.7% | 5.8% | 9.8% | 6.4% |
@@ -50,7 +50,7 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 | 08:00 | 2.4% | 4.3% | 1.0% | 3.6% | 4.7% | 0.0% | 10.8% |
 | 09:00 | 4.8% | 2.4% | 5.1% | 3.6% | 3.9% | 3.5% | 11.7% |
 | 10:00 | 3.1% | 3.6% | 4.6% | 1.2% | 2.9% | 4.1% | 10.3% |
-| 11:00 | 2.9% | 5.4% | 8.3% | 2.4% | 4.5% | 6.0% | 11.7% |
+| 11:00 | 2.9% | 5.4% | 7.9% | 2.4% | 4.5% | 6.0% | 11.7% |
 | 12:00 | 3.3% | 6.7% | 8.1% | 6.3% | 5.3% | 6.2% | 8.0% |
 | 13:00 | 8.9% | 6.4% | 5.4% | 7.8% | 8.2% | 5.9% | 13.1% |
 | 14:00 | 8.0% | 4.7% | 6.4% | 10.0% | 10.3% | 7.6% | 12.5% |
