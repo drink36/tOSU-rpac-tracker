@@ -832,7 +832,7 @@ Hour,Mon,Tue,Wed,Thu,Fri,Sat,Sun
 19:00,,,,,,9.4,
 20:00,,,,,,,
 21:00,,,,3.1,0.0,,
-22:00,,,,,,,
+22:00,,,,,,3.1,
 23:00,,,,,,,
 
 October — RPAC Aquatic Center - Comp Pool,,,,,,,
@@ -859,7 +859,7 @@ Hour,Mon,Tue,Wed,Thu,Fri,Sat,Sun
 19:00,,,,,,0.0,
 20:00,,,,,,,
 21:00,,,,0.0,0.0,,
-22:00,,,,,,,
+22:00,,,,,,0.0,
 23:00,,,,,,,
 
 October — RPAC Aquatic Center - Hot Tub,,,,,,,
@@ -886,7 +886,7 @@ Hour,Mon,Tue,Wed,Thu,Fri,Sat,Sun
 19:00,,,,,,6.7,
 20:00,,,,,,,
 21:00,,,,33.3,0.0,,
-22:00,,,,,,,
+22:00,,,,,,6.7,
 23:00,,,,,,,
 
 October — RPAC Aquatic Center - Lap Pool,,,,,,,
@@ -913,7 +913,7 @@ Hour,Mon,Tue,Wed,Thu,Fri,Sat,Sun
 19:00,,,,,,8.3,
 20:00,,,,,,,
 21:00,,,,25.0,0.0,,
-22:00,,,,,,,
+22:00,,,,,,16.7,
 23:00,,,,,,,
 
 October — RPAC Aquatic Center - Leisure Pool,,,,,,,
@@ -940,6 +940,6 @@ Hour,Mon,Tue,Wed,Thu,Fri,Sat,Sun
 19:00,,,,,,20.0,
 20:00,,,,,,,
 21:00,,,,35.0,0.0,,
-22:00,,,,,,,
+22:00,,,,,,0.0,
 23:00,,,,,,,
 
