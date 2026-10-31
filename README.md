@@ -2,7 +2,7 @@
 
 Wondering when is the best time to go swimming? This tracker collects live occupancy data from the **Recreation and Physical Activity Center (RPAC)** at **The Ohio State University** every 15 minutes and builds up a historical average so you can find the least crowded times to swim.
 
-_Last updated: 2026-10-31 14:46 ET_
+_Last updated: 2026-10-31 18:16 ET_
 
 Lower % = fewer people in the pool. Empty cells mean no data collected yet for that time slot.
 
@@ -21,7 +21,7 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 | 15:00 | 5.5% | 6.0% | 10.2% | 9.2% | 7.1% | 12.5% | 13.1% |
 | 16:00 | 13.1% | 14.6% | 14.1% | 10.2% | 14.0% | 13.8% | 16.7% |
 | 17:00 | 20.3% | 22.1% | 18.6% | 18.9% | 20.7% | 18.4% | 16.2% |
-| 18:00 | 25.4% | 27.0% | 25.4% | 22.8% | 23.1% | 17.0% | 16.5% |
+| 18:00 | 25.4% | 27.0% | 25.4% | 22.8% | 23.1% | 16.5% | 16.5% |
 | 19:00 | 11.5% | 2.7% | 4.4% | 3.2% | 3.2% | 7.4% | 1.7% |
 | 20:00 | 6.3% | 4.9% | 0.5% | 1.8% | 6.5% | 6.5% | 5.1% |
 
@@ -57,7 +57,7 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 | 15:00 | 7.8% | 5.6% | 7.2% | 9.4% | 8.8% | 9.1% | 12.6% |
 | 16:00 | 12.1% | 10.8% | 12.6% | 10.7% | 10.4% | 16.1% | 18.2% |
 | 17:00 | 11.8% | 20.5% | 16.5% | 11.1% | 16.7% | 14.1% | 23.0% |
-| 18:00 | 19.8% | 24.9% | 21.2% | 19.4% | 23.8% | 20.5% | 24.4% |
+| 18:00 | 19.8% | 24.9% | 21.2% | 19.4% | 23.8% | 20.7% | 24.4% |
 | 19:00 | 9.2% | 3.8% | 4.8% | 6.2% | 0.8% | 10.8% | 4.2% |
 | 20:00 | 11.9% | 6.7% | 7.8% | 3.3% | 9.1% | 12.1% | 13.9% |
 
@@ -93,6 +93,6 @@ Lower % = fewer people in the pool. Empty cells mean no data collected yet for t
 | 15:00 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 5.3% | 9.1% |
 | 16:00 | 0.5% | 2.4% | 1.5% | 0.6% | 2.3% | 7.0% | 9.6% |
 | 17:00 | 4.1% | 10.5% | 3.4% | 5.6% | 11.1% | 8.4% | 11.6% |
-| 18:00 | 6.4% | 7.1% | 8.4% | 5.7% | 12.1% | 6.8% | 12.1% |
+| 18:00 | 6.4% | 7.1% | 8.4% | 5.7% | 12.1% | 6.9% | 12.1% |
 | 19:00 | 6.4% | 0.8% | 0.9% | 1.2% | 0.3% | 5.1% | 1.1% |
 | 20:00 | 5.5% | 0.0% | 0.8% | 0.9% | 3.0% | 0.7% | 3.4% |
