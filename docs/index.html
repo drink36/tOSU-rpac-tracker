@@ -4,8 +4,23 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>RPAC Crowd Tracker</title>
-<meta name="description" content="When is the RPAC at Ohio State least crowded? Historical occupancy for the pools, gyms and fitness floors.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23ba0c2f'/><path d='M5 20c3-3 5-3 8 0s5 3 8 0 5-3 6-1' stroke='white' stroke-width='3' fill='none' stroke-linecap='round'/></svg>">
+<meta name="description" content="When are Ohio State's rec centers least crowded? Typical crowds by day and hour for the RPAC pools, gyms and fitness floors, from RecSports' own counts.">
+<link rel="canonical" href="https://drink36.github.io/tOSU-rpac-tracker/">
+<meta name="theme-color" content="#ba0c2f" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="RPAC Crowd Tracker">
+<meta property="og:title" content="When is the RPAC least crowded?">
+<meta property="og:description" content="Typical crowds by day and hour at Ohio State's rec centers, from RecSports' own counts.">
+<meta property="og:url" content="https://drink36.github.io/tOSU-rpac-tracker/">
+<meta property="og:image" content="https://drink36.github.io/tOSU-rpac-tracker/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="When is the RPAC least crowded? Typical crowds by day and hour.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
 <style>
   :root {
     --bg: #f6f6f4;
@@ -18,6 +33,7 @@
     --accent-soft: #fbe9ec;
     --heat-lo: #f3f1ee;
     --heat-hi: #ba0c2f;
+    --bar: #dc8597;
     --quiet: #1f7a4d;
     --busy: #b4231f;
     --shadow: 0 1px 2px rgba(0,0,0,.05), 0 4px 16px rgba(0,0,0,.04);
@@ -35,6 +51,7 @@
       --accent-soft: #3a1c21;
       --heat-lo: #232321;
       --heat-hi: #e8324d;
+      --bar: #a34152;
       --quiet: #5fcf95;
       --busy: #ff7a70;
       --shadow: none;
@@ -52,16 +69,18 @@
   }
   .wrap { max-width: 980px; margin: 0 auto; padding: 0 16px; }
   a { color: var(--accent); }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
   header { padding: 40px 0 8px; }
   .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 0 0 6px; }
   h1 { font-size: clamp(28px, 5vw, 40px); line-height: 1.1; margin: 0 0 10px; letter-spacing: -.02em; }
-  .lede { color: var(--muted); margin: 0; max-width: 60ch; }
-  .stamp { margin-top: 14px; font-size: 14px; color: var(--muted); display: flex; align-items: baseline; gap: 8px; }
+  .lede { color: var(--muted); margin: 0; max-width: 62ch; }
+  .stamp { margin-top: 14px; font-size: 14px; color: var(--muted); display: flex; align-items: baseline; gap: 8px; min-height: 21px; }
   .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--quiet); display: inline-block; flex: none; transform: translateY(-1px); }
   .dot.stale { background: #c9a227; }
 
   h2 { font-size: 20px; margin: 0; letter-spacing: -.01em; }
+  h3 { font-size: 15px; margin: 0 0 10px; }
   section { margin-top: 28px; }
   .section-head { display: flex; align-items: end; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
   .hint { font-size: 14px; color: var(--muted); margin: 2px 0 0; }
@@ -72,9 +91,10 @@
     font: inherit; font-size: 14px; font-weight: 600; padding: 7px 14px; border-radius: 999px; cursor: pointer;
   }
   .tabs button[aria-pressed="true"] { background: var(--surface); color: var(--text); box-shadow: var(--shadow); }
-  .tabs button:focus-visible, .card:focus-visible, .chips button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .tabs.facilities { margin-top: 18px; border-radius: 16px; }
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(178px, 1fr)); gap: 10px; }
   .card {
     appearance: none; text-align: left; font: inherit; color: inherit; cursor: pointer;
     background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px;
@@ -83,21 +103,25 @@
   }
   .card:hover { transform: translateY(-1px); }
   .card[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset, var(--shadow); }
-  .card .name { font-weight: 600; font-size: 15px; }
+  .card .name { font-weight: 600; font-size: 15px; text-wrap: balance; }
   .card .big { font-size: 26px; font-weight: 700; letter-spacing: -.02em; line-height: 1; }
   .card .big small { font-size: 14px; font-weight: 500; color: var(--muted); letter-spacing: 0; }
+  .card .big.closed { color: var(--muted); }
   .meter { height: 6px; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
   .meter span { display: block; height: 100%; background: var(--accent); border-radius: inherit; }
-  .card .vs { font-size: 13px; color: var(--muted); line-height: 1.4; }
+  .card .vs { font-size: 13px; color: var(--muted); line-height: 1.45; }
   .card .vs b { color: var(--text); font-weight: 600; }
-  .vs .q { color: var(--quiet); font-weight: 600; }
-  .vs .b { color: var(--busy); font-weight: 600; }
+  .card .next { display: block; margin-top: 4px; padding-top: 6px; border-top: 1px dashed var(--border); }
+  .q { color: var(--quiet); font-weight: 600; }
+  .b { color: var(--busy); font-weight: 600; }
+  .jump { display: none; margin-top: 10px; appearance: none; border: 0; background: none; padding: 4px 0; font: inherit; font-size: 14px; font-weight: 600; color: var(--accent); cursor: pointer; }
 
   .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 20px; box-shadow: var(--shadow); }
   .panel + .panel { margin-top: 14px; }
   .panel-title { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+  .notice { background: var(--surface-2); border-radius: 12px; padding: 12px 14px; font-size: 14px; color: var(--text); margin: 0 0 14px; }
 
-  .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
   .chips button {
     appearance: none; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
     border: 1px solid var(--border); background: transparent; color: var(--text);
@@ -105,40 +129,38 @@
   }
   .chips button[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
   .chips button .today { display: block; font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; opacity: .7; line-height: 1; }
+  .chip-note { font-size: 13px; color: var(--muted); margin: 0 0 14px; }
 
   .best { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
   .best div { background: var(--accent-soft); border-radius: 12px; padding: 10px 12px; }
   .best .rank { font-size: 12px; color: var(--muted); font-weight: 600; }
-  .best .when { font-size: 20px; font-weight: 700; letter-spacing: -.01em; }
+  .best .when { font-size: 20px; font-weight: 700; letter-spacing: -.01em; white-space: nowrap; }
   .best .how { font-size: 13px; color: var(--muted); }
 
   .bars { display: grid; gap: 4px; }
-  .bar { display: grid; grid-template-columns: 52px 1fr 64px; align-items: center; gap: 10px; font-size: 13px; }
+  .bar { display: grid; grid-template-columns: 52px 1fr 72px; align-items: center; gap: 10px; font-size: 13px; }
   .bar .h { color: var(--muted); text-align: right; }
   .bar .track { height: 18px; background: var(--surface-2); border-radius: 5px; overflow: hidden; }
-  .bar .fill { height: 100%; border-radius: 5px; background: color-mix(in oklab, var(--accent) 55%, var(--surface-2)); }
+  .bar .fill { display: block; height: 100%; border-radius: 5px; background: var(--bar); }
   .bar.top .fill { background: var(--quiet); }
   .bar.now .h { color: var(--text); font-weight: 700; }
   .bar.now .track { outline: 2px solid var(--text); outline-offset: 1px; }
   .bar .v { color: var(--muted); }
-  .bar.empty .v { font-style: italic; }
+  .bar.empty .v, .bar.zero .v, .bar.few .v { font-style: italic; }
+  .bar.few .track { background: transparent; outline: 1px dashed var(--muted); outline-offset: -1px; }
+  .bar.past { opacity: .45; }
 
   .heat-scroll { overflow-x: auto; margin: 0 -4px; padding: 0 4px; }
   table.heat { border-collapse: separate; border-spacing: 3px; width: 100%; font-size: 12px; table-layout: fixed; }
   .heat th { font-weight: 600; color: var(--muted); padding: 2px 4px; }
   .heat th.hr { text-align: right; white-space: nowrap; width: 56px; }
   .heat th.today-col { color: var(--accent); }
-  .heat td {
-    height: 28px; text-align: center; border-radius: 5px;
-    background: color-mix(in oklab, var(--heat-hi) calc(var(--t) * 100%), var(--heat-lo));
-    color: var(--text);
-  }
-  .heat td.dark { color: #fff; }
-  .heat td.na { background: transparent; color: var(--muted); opacity: .5; }
-  .heat td.thin { opacity: .55; }
+  .heat td { height: 28px; text-align: center; border-radius: 5px; }
+  .heat td.na { color: var(--muted); }
+  .heat td.few { font-style: italic; outline: 1.5px dashed currentColor; outline-offset: -4px; }
   .heat td.now { outline: 2px solid var(--text); outline-offset: 1px; font-weight: 700; }
   .legend { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); margin-top: 12px; flex-wrap: wrap; }
-  .legend .ramp { width: 140px; height: 10px; border-radius: 999px; background: linear-gradient(90deg, var(--heat-lo), var(--heat-hi)); border: 1px solid var(--border); }
+  .legend .ramp { width: 140px; height: 10px; border-radius: 999px; border: 1px solid var(--border); }
 
   footer { margin: 40px 0 32px; font-size: 14px; color: var(--muted); border-top: 1px solid var(--border); padding-top: 18px; }
   footer p { margin: 0 0 8px; }
@@ -149,12 +171,14 @@
     header { padding-top: 28px; }
     .panel { padding: 16px; border-radius: 14px; }
     .best { grid-template-columns: 1fr; }
-    .best div { display: flex; align-items: baseline; gap: 10px; }
+    .best div { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
     .cards { grid-template-columns: repeat(2, 1fr); }
+    .card { padding: 12px; }
     .card .big { font-size: 22px; }
-    .bar { grid-template-columns: 44px 1fr 56px; gap: 8px; }
+    .jump { display: inline-block; }
+    .bar { grid-template-columns: 44px 1fr 64px; gap: 8px; }
     table.heat { font-size: 10.5px; border-spacing: 2px; }
-    .heat th.hr { width: 38px; padding: 0 3px 0 0; }
+    .heat th.hr { width: 40px; padding: 0 3px 0 0; }
     .heat td { height: 26px; letter-spacing: -.02em; }
   }
 </style>
@@ -162,175 +186,400 @@
 <body>
 <div class="wrap">
   <header>
-    <p class="eyebrow">Ohio State · RPAC</p>
-    <h1>When is the RPAC least crowded?</h1>
-    <p class="lede">Occupancy for the pools, gyms and fitness floors, recorded automatically and averaged by day and hour, so you can pick a quiet time.</p>
+    <p class="eyebrow">Ohio State · Rec center crowds</p>
+    <h1 id="title">When is the RPAC least crowded?</h1>
+    <p class="lede">Typical crowds for the pools, gyms and fitness floors, built from the head counts RecSports publishes, so you can pick a quiet time.</p>
     <div class="stamp" id="stamp"></div>
   </header>
 
   <main id="app"><p class="loading">Loading data…</p></main>
+  <noscript><p class="error">This page needs JavaScript to show the data.</p></noscript>
+  <p id="announce" class="sr-only" aria-live="polite"></p>
 
   <footer>
-    <p>Data comes from the occupancy counts on the RecSports website, recorded by a scheduled GitHub Action. Percent means people ÷ posted capacity. Averages are only as good as the samples behind them: faded cells have fewer than 3 readings.</p>
-    <p><a href="https://github.com/drink36/tOSU-rpac-tracker">Source on GitHub</a> · <a href="https://github.com/drink36/tOSU-rpac-tracker/blob/main/rpac_stats.csv">Raw data (CSV)</a> · Not affiliated with Ohio State.</p>
+    <p>RecSports staff enter these head counts. A reading only counts when its number had been updated shortly before it was recorded, so closed hours and counts left over from the night before are skipped. Percent means people ÷ posted capacity. Dashed cells and bars have fewer than 5 readings, and "mostly 0" means nobody was counted in most readings, which can mean the area is closed then.</p>
+    <p><a href="https://github.com/drink36/tOSU-rpac-tracker">Source on GitHub</a> · <a href="https://raw.githubusercontent.com/drink36/tOSU-rpac-tracker/main/rpac_stats.csv">Raw RPAC data (CSV)</a> · <a href="data.json">Site data (JSON)</a> · Not affiliated with Ohio State.</p>
   </footer>
 </div>
 
 <script>
 (() => {
-  const HOURS = Array.from({ length: 17 }, (_, i) => i + 6); // 6 AM – 10 PM
   const GROUPS = ["Pools", "Fitness", "Gyms & Courts"];
+  const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   const DAY_NAMES = { Mon: "Monday", Tue: "Tuesday", Wed: "Wednesday", Thu: "Thursday", Fri: "Friday", Sat: "Saturday", Sun: "Sunday" };
+  const REFRESH_MS = 10 * 60 * 1000;
 
   const app = document.getElementById("app");
-  const state = { group: "Pools", loc: null, day: null, range: "all" };
-  let data;
+  const titleEl = document.getElementById("title");
+  const stampEl = document.getElementById("stamp");
+  const announceEl = document.getElementById("announce");
+  const state = { fac: "rpac", group: null, loc: null, day: null, view: null };
+  let data = null, lastFetch = 0, hashInUse = false, palette = null;
 
-  const hourLabel = h => `${h % 12 || 12} ${h < 12 ? "AM" : "PM"}`;
-  const fmtPct = v => v == null ? "–" : `${v < 10 ? v.toFixed(1) : Math.round(v)}%`;
-  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-
-  function ago(iso) {
-    const mins = Math.round((Date.now() - new Date(iso)) / 60000);
+  // ---------- formatting
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const hourLabel = h => `${h % 12 || 12}\u00a0${h < 12 ? "AM" : "PM"}`;
+  const pctText = v => v == null ? "–" : `${v < 10 ? v.toFixed(1) : Math.round(v)}%`;
+  const ET = { timeZone: "America/New_York" };
+  const partsFmt = new Intl.DateTimeFormat("en-US", { ...ET, weekday: "short", hour: "numeric", hourCycle: "h23", year: "numeric", month: "numeric", day: "numeric" });
+  function etParts(date) {
+    const p = {};
+    for (const x of partsFmt.formatToParts(date)) p[x.type] = x.value;
+    return { day: p.weekday, hour: Number(p.hour) % 24, ymd: `${p.year}-${p.month}-${p.day}` };
+  }
+  const nb = s => s.replace(/\s(AM|PM)/g, "\u00a0$1");   // keep "6:19 PM" on one line
+  const clock = d => nb(d.toLocaleTimeString("en-US", { ...ET, hour: "numeric", minute: "2-digit" }));
+  const when = d => etParts(d).ymd === etParts(new Date()).ymd ? clock(d)
+    : nb(d.toLocaleString("en-US", { ...ET, month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }));
+  function ago(d) {
+    const mins = Math.max(0, Math.round((Date.now() - d) / 60000));
+    if (mins < 1) return "just now";
     if (mins < 60) return `${mins} min ago`;
     const hrs = Math.round(mins / 60);
     if (hrs < 48) return `${hrs} hour${hrs === 1 ? "" : "s"} ago`;
     return `${Math.round(hrs / 24)} days ago`;
   }
 
-  function etSlot(date) {
-    const parts = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", weekday: "short", hour: "numeric", hourCycle: "h23" })
-      .formatToParts(date);
-    const get = t => parts.find(p => p.type === t).value;
-    return { day: get("weekday"), hour: Number(get("hour")) % 24 };
+  // ---------- heatmap colors: mixed here (not in CSS) so every cell's text contrast can be checked
+  const hexRgb = h => {
+    h = h.trim().replace("#", "");
+    if (h.length === 3) h = [...h].map(c => c + c).join("");
+    return [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16) / 255);
+  };
+  const toLinear = c => c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  const toGamma = c => c <= 0.0031308 ? 12.92 * c : 1.055 * c ** (1 / 2.4) - 0.055;
+  function toOklab(rgb) {
+    const [r, g, b] = rgb.map(toLinear);
+    const l = Math.cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b);
+    const m = Math.cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b);
+    const s = Math.cbrt(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b);
+    return [0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s,
+            1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s,
+            0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s];
+  }
+  function fromOklab([L, a, b]) {
+    const l = (L + 0.3963377774 * a + 0.2158037573 * b) ** 3;
+    const m = (L - 0.1055613458 * a - 0.0638541728 * b) ** 3;
+    const s = (L - 0.0894841775 * a - 1.2914855480 * b) ** 3;
+    return [4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s,
+            -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s,
+            -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s]
+      .map(c => Math.min(1, Math.max(0, toGamma(c))));
+  }
+  const luminance = rgb => { const [r, g, b] = rgb.map(toLinear); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
+  const contrast = (a, b) => { const [x, y] = [luminance(a), luminance(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
+  function readPalette() {
+    const css = getComputedStyle(document.documentElement);
+    palette = { lo: toOklab(hexRgb(css.getPropertyValue("--heat-lo"))), hi: toOklab(hexRgb(css.getPropertyValue("--heat-hi"))) };
+  }
+  function heat(t) {
+    const rgb = fromOklab(palette.lo.map((v, i) => v + (palette.hi[i] - v) * t));
+    const ink = contrast(rgb, [0, 0, 0]) >= contrast(rgb, [1, 1, 1]) ? "#000" : "#fff";
+    return { bg: `rgb(${rgb.map(c => Math.round(c * 255)).join(",")})`, ink };
   }
 
-  function readHash() {
-    const id = decodeURIComponent(location.hash.slice(1));
-    const loc = data.locations.find(l => l.id === id);
-    if (loc) { state.loc = loc.id; state.group = loc.group; }
+  // ---------- data helpers
+  const facility = () => data.facilities.find(f => f.code === state.fac) || data.facilities[0];
+  const usable = c => !!c && c[3] >= data.minReadings;          // c = [mean, p25, p75, readings, readings above 0]
+  const inUse = c => usable(c) && c[4] / c[3] >= 1 / 3;          // people were counted in most readings
+  const pct = (loc, c) => c[0] / loc.capacity * 100;
+  const cellAt = (fac, loc, viewId, day, hour) => loc.stats[viewId][fac.views[viewId].dayColumn[DAYS.indexOf(day)]][hour] || null;
+  const usualRange = c => { const a = Math.round(c[1]), b = Math.round(c[2]); return a === b ? `${a}` : `${a}\u2060–\u2060${b}`; };
+  const usableCells = (loc, viewId) => loc.stats[viewId].flat().filter(usable).length;
+
+  function hoursFor(loc, viewId) {
+    const grid = loc.stats[viewId];
+    let hrs = [];
+    for (let h = 0; h < 24; h++) if (grid.some(col => usable(col[h]))) hrs.push(h);
+    if (!hrs.length) for (let h = 0; h < 24; h++) if (grid.some(col => col[h])) hrs.push(h);
+    let lo = hrs.length ? Math.max(5, Math.min(...hrs)) : 6;
+    let hi = hrs.length ? Math.min(23, Math.max(...hrs)) : 22;
+    if (lo > hi) [lo, hi] = [6, 22];
+    return Array.from({ length: hi - lo + 1 }, (_, i) => lo + i);
+  }
+
+  // ---------- rendering
+  function renderStamp() {
+    if (!data) return;
+    const fac = facility();
+    const last = new Date(fac.last);
+    const stale = Date.now() - last > 3 * 3600 * 1000;
+    stampEl.innerHTML = `<span class="dot${stale ? " stale" : ""}"></span><span>Latest reading ${when(last)} ET (${ago(last)}) · <a href="${esc(fac.livePage)}" target="_blank" rel="noopener">Live count on RecSports ↗</a></span>`;
+  }
+
+  function cardHtml(fac, l, viewId, now) {
+    const L = l.latest;
+    const taken = new Date(L.updated || L.time);
+    const ageH = (Date.now() - taken) / 3600000;
+    let body;
+    if (L.closedByOsu || L.status === "closed") {
+      const why = L.closedByOsu ? "Marked closed by RecSports" : "Every area here reads 0, so it's probably closed";
+      body = `<span class="big closed">Closed</span><span class="vs">${why}${L.updated && L.closedByOsu ? `, last count ${when(new Date(L.updated))}` : ""}</span>`;
+    } else {
+      const share = Math.min(100, L.count / l.capacity * 100);
+      const lines = [];
+      if (l.live === false) {
+        lines.push(`<b>${pctText(share)} full</b> · ${L.updated ? `staff count, ${when(new Date(L.updated))}` : `unchanged since ${when(new Date(L.since))}`}`);
+        lines.push("Entered by staff, often hours apart");
+      } else {
+        lines.push(`<b>${pctText(share)} full</b> · counted ${when(taken)}${ageH >= 1.5 ? ` (${ago(taken)})` : ""}`);
+        const at = etParts(taken);
+        const then = ageH < 2 ? cellAt(fac, l, viewId, at.day, at.hour) : null;
+        const nowCell = cellAt(fac, l, viewId, now.day, now.hour);
+        if (inUse(then)) {
+          const [mean, p25, p75] = then;
+          let word = "About usual";
+          if (L.count < p25 && mean - L.count >= 1) word = `<span class="q">Quieter</span> than usual`;
+          else if (L.count > p75 && L.count - mean >= 1) word = `<span class="b">Busier</span> than usual`;
+          lines.push(`${word} (usually ${usualRange(then)})`);
+        } else if (ageH >= 2 && usable(nowCell)) {
+          lines.push(`Usually ${usualRange(nowCell)} people at ${hourLabel(now.hour)}`);
+        }
+        const next = [0, 1, 2].map(i => now.hour + i).filter(h => h < 24)
+          .map(h => [h, cellAt(fac, l, viewId, now.day, h)]).filter(([, c]) => usable(c));
+        if (next.length) lines.push(`<span class="next">Next 3 hours: ${next.map(([h, c]) => `${hourLabel(h)} ~${Math.round(c[0])}`).join(" · ")}</span>`);
+      }
+      body = `<span class="big">${L.count}<small> / ${l.capacity} people</small></span>
+        <span class="meter"><span style="width:${share.toFixed(1)}%"></span></span>
+        <span class="vs">${lines.join("<br>")}</span>`;
+    }
+    return `<button class="card" data-loc="${esc(l.id)}" aria-pressed="${l.id === state.loc}"><span class="name">${esc(l.name)}</span>${body}</button>`;
+  }
+
+  function notesFor(loc, viewId) {
+    const L = loc.latest, notes = [];
+    if (L.closedByOsu) notes.push("RecSports marked this area closed at the last reading.");
+    const cells = usableCells(loc, viewId);
+    if (loc.live === false && cells < 10) {
+      notes.push("RecSports staff enter this count by hand, often hours or days apart, so there aren't enough fresh readings for an hourly pattern. The latest count is on the card above.");
+      return { notes, hide: true };
+    }
+    if (!cells) {
+      notes.push(loc.live === null
+        ? "Not enough readings yet. Typical times appear after a couple of weeks of data."
+        : "Not enough readings in this view yet. Try “All data”.");
+      return { notes, hide: true };
+    }
+    if (loc.live === false) notes.push("This count is entered by staff, so it's only fresh shortly after an update. Treat the pattern as rough.");
+    return { notes, hide: false };
+  }
+
+  function bestHtml(fac, loc, viewId, now) {
+    const day = state.day || now.day;
+    const isToday = day === now.day;
+    const hours = hoursFor(loc, viewId);
+    const vals = hours.map(h => ({ h, c: cellAt(fac, loc, viewId, day, h) }));
+    let pickDay = day;
+    let pool = vals.filter(x => inUse(x.c) && (!isToday || x.h >= now.hour));
+    let heading = isToday ? "Best for the rest of today" : `Best on ${DAY_NAMES[day]}`;
+    if (isToday && !pool.length && vals.some(x => inUse(x.c))) {
+      pickDay = DAYS[(DAYS.indexOf(day) + 1) % 7];
+      pool = hours.map(h => ({ h, c: cellAt(fac, loc, viewId, pickDay, h) })).filter(x => inUse(x.c));
+      heading = `Nothing left today. Best tomorrow (${DAY_NAMES[pickDay]})`;
+    }
+    pool.sort((a, b) => a.c[0] - b.c[0] || a.h - b.h);
+    const top = pool.slice(0, 3);
+    const topSet = new Set(pickDay === day ? top.map(x => x.h) : []);
+
+    let best;
+    if (top.length) {
+      best = `<h3>${heading}</h3><div class="best">${top.map((x, i) => `
+        <div><span class="rank">${["Quietest", "2nd", "3rd"][i]}</span>
+        <span class="when">${hourLabel(x.h)}</span>
+        <span class="how">~${Math.round(x.c[0])} people · ${pctText(pct(loc, x.c))} full · ${x.c[3]} readings</span></div>`).join("")}</div>`;
+    } else if (vals.some(x => usable(x.c))) {
+      best = `<p class="notice">Nobody was counted in most readings on ${DAY_NAMES[day]}${isToday ? " for the rest of the day" : ""}, so there's no quiet time to recommend. It may be closed to the public then.</p>`;
+    } else {
+      best = `<p class="notice">Not enough readings for ${DAY_NAMES[day]} yet.</p>`;
+    }
+
+    const maxV = Math.max(1, ...vals.map(x => x.c ? pct(loc, x.c) : 0));
+    const bars = vals.map(({ h, c }) => {
+      const kind = !c ? "empty" : !usable(c) ? "few" : !inUse(c) ? "zero" : "";
+      const cls = ["bar", kind, topSet.has(h) ? "top" : "", isToday && h < now.hour ? "past" : "", isToday && h === now.hour ? "now" : ""].filter(Boolean).join(" ");
+      const v = c ? pct(loc, c) : 0;
+      const label = !c ? "no data" : kind === "zero" ? "mostly 0" : pctText(v);
+      const tip = !c ? `${hourLabel(h)}: no readings`
+        : `${hourLabel(h)}: ${pctText(v)} full, ~${Math.round(c[0])} people (usually ${usualRange(c)}), ${c[3]} reading${c[3] === 1 ? "" : "s"}${kind === "zero" ? ", nobody counted in most" : ""}`;
+      return `<div class="${cls}" title="${esc(tip)}"><span class="h">${hourLabel(h)}</span>
+        <span class="track"><span class="fill" style="width:${c ? Math.max(1.5, v / maxV * 100).toFixed(1) : 0}%"></span></span>
+        <span class="v">${label}</span></div>`;
+    }).join("");
+    return best + `<div class="bars" aria-label="Average % full by hour on ${DAY_NAMES[day]}">${bars}</div>`;
+  }
+
+  function heatHtml(fac, loc, viewId, now) {
+    const view = fac.views[viewId];
+    const hours = hoursFor(loc, viewId);
+    const grid = loc.stats[viewId];
+    const values = hours.flatMap(h => grid.map(col => col[h])).filter(Boolean).map(c => pct(loc, c));
+    const max = Math.max(5, ...values);
+    const nowCol = view.dayColumn[DAYS.indexOf(now.day)];
+    const head = `<tr><th class="hr" scope="col"><span class="sr-only">Hour</span></th>${view.columns.map((name, i) =>
+      `<th scope="col"${i === nowCol ? ' class="today-col"' : ""}>${esc(name)}</th>`).join("")}</tr>`;
+    const body = hours.map(h => `<tr><th class="hr" scope="row">${hourLabel(h)}</th>${view.columns.map((name, i) => {
+      const c = grid[i][h];
+      if (!c) return `<td class="na" title="No readings">·</td>`;
+      const v = pct(loc, c);
+      const { bg, ink } = heat(Math.min(1, v / max));
+      const cls = [usable(c) ? "" : "few", i === nowCol && h === now.hour ? "now" : ""].filter(Boolean).join(" ");
+      const tip = `${name} ${hourLabel(h)}: ${pctText(v)} full, ~${Math.round(c[0])} people (usually ${usualRange(c)}), ${c[3]} reading${c[3] === 1 ? "" : "s"}${inUse(c) || !usable(c) ? "" : ", nobody counted in most"}`;
+      return `<td${cls ? ` class="${cls}"` : ""} style="background:${bg};color:${ink}" title="${esc(tip)}">${pctText(v)}</td>`;
+    }).join("")}</tr>`).join("");
+    const ramp = [0, .25, .5, .75, 1].map(t => heat(t).bg).join(",");
+    return `<div class="heat-scroll"><table class="heat">
+        <caption class="sr-only">Average % full by day and hour, ${esc(loc.name)}, ${esc(view.label)}</caption>
+        <thead>${head}</thead><tbody>${body}</tbody></table></div>
+      <div class="legend"><span>Quieter</span><span class="ramp" style="background:linear-gradient(90deg,${ramp})"></span><span>Busier (${pctText(max)})</span><span>· Dashed = fewer than ${data.minReadings} readings · outlined = now</span></div>`;
   }
 
   function render() {
-    const now = etSlot(new Date());
-    const inGroup = data.locations.filter(l => l.group === state.group);
+    const now = etParts(new Date());
+    const fac = facility();
+    state.fac = fac.code;
+    const groups = GROUPS.filter(g => fac.locations.some(l => l.group === g));
+    if (!groups.includes(state.group)) state.group = groups[0];
+    const inGroup = fac.locations.filter(l => l.group === state.group);
     if (!inGroup.some(l => l.id === state.loc)) state.loc = inGroup[0].id;
-    const loc = data.locations.find(l => l.id === state.loc);
-    const summary = loc[state.range];
-    const day = state.day ?? now.day;
-    const dIdx = data.days.indexOf(day);
+    const loc = inGroup.find(l => l.id === state.loc);
+    const viewId = fac.views[state.view] ? state.view : fac.defaultView;
+    const view = fac.views[viewId];
+    const day = state.day || now.day;
 
-    // ---- Right now cards
-    const cards = inGroup.map(l => {
-      const at = etSlot(new Date(l.latest.time));
-      const typical = l.all.pct[data.days.indexOf(at.day)][at.hour];
-      let vs = "";
-      if (typical != null) {
-        const diff = l.latest.pct - typical;
-        vs = Math.abs(diff) < 2 ? "About usual" : diff < 0 ? `<span class="q">Quieter</span> than usual` : `<span class="b">Busier</span> than usual`;
-        vs += ` (${fmtPct(typical)})`;
-      }
-      const pct = Math.min(100, l.latest.pct);
-      return `<button class="card" data-loc="${l.id}" aria-pressed="${l.id === state.loc}">
-        <span class="name">${esc(l.name)}</span>
-        <span class="big">${l.latest.count}<small> / ${l.capacity} people</small></span>
-        <span class="meter"><span style="width:${pct}%"></span></span>
-        <span class="vs"><b>${fmtPct(l.latest.pct)} full</b>${vs ? "<br>" + vs : ""}</span>
-      </button>`;
-    }).join("");
+    titleEl.textContent = `When is ${fac.title} least crowded?`;
+    renderStamp();
 
-    // ---- Best times for the chosen day
-    const dayVals = HOURS.map(h => ({ h, v: summary.pct[dIdx][h], p: summary.people[dIdx][h], n: summary.n[dIdx][h] }));
-    const ranked = dayVals.filter(x => x.v != null && x.n >= 2).sort((a, b) => a.v - b.v || a.h - b.h);
-    const top = ranked.slice(0, 3);
-    const topSet = new Set(top.map(x => x.h));
-    const maxDay = Math.max(1, ...dayVals.map(x => x.v ?? 0));
-
-    const best = top.length ? `<div class="best">${top.map((x, i) => `
-        <div><span class="rank">${["Quietest", "2nd", "3rd"][i]}</span>
-        <span class="when">${hourLabel(x.h)}</span>
-        <span class="how">${fmtPct(x.v)} full · ~${Math.round(x.p)} people</span></div>`).join("")}</div>`
-      : `<p class="hint">Not enough data for ${DAY_NAMES[day]} yet.</p>`;
-
-    const bars = dayVals.map(x => {
-      const cls = ["bar", topSet.has(x.h) ? "top" : "", day === now.day && x.h === now.hour ? "now" : "", x.v == null ? "empty" : ""].join(" ");
-      const w = x.v == null ? 0 : Math.max(1.5, x.v / maxDay * 100);
-      return `<div class="${cls}" title="${x.n} reading${x.n === 1 ? "" : "s"}">
-        <span class="h">${hourLabel(x.h)}</span>
-        <span class="track"><span class="fill" style="display:block;width:${w}%"></span></span>
-        <span class="v">${x.v == null ? "no data" : fmtPct(x.v)}</span></div>`;
-    }).join("");
-
-    const chips = data.days.map(d => `<button data-day="${d}" aria-pressed="${d === day}">${d === now.day ? '<span class="today">Today</span>' : ""}${d}</button>`).join("");
-
-    // ---- Weekly heatmap
-    const vals = HOURS.flatMap(h => data.days.map((_, i) => summary.pct[i][h])).filter(v => v != null);
-    const max = Math.max(5, ...vals);
-    const head = `<tr><th></th>${data.days.map(d => `<th class="${d === now.day ? "today-col" : ""}">${d}</th>`).join("")}</tr>`;
-    const body = HOURS.map(h => `<tr><th class="hr">${hourLabel(h)}</th>${data.days.map((d, i) => {
-      const v = summary.pct[i][h], n = summary.n[i][h], p = summary.people[i][h];
-      if (v == null) return `<td class="na" title="No data">·</td>`;
-      const t = Math.min(1, v / max);
-      const cls = [t > .55 ? "dark" : "", n < 3 ? "thin" : "", d === now.day && h === now.hour ? "now" : ""].join(" ");
-      return `<td class="${cls}" style="--t:${t.toFixed(3)}" title="${DAY_NAMES[d]} ${hourLabel(h)}: ${fmtPct(v)} full, ~${Math.round(p)} people (${n} reading${n === 1 ? "" : "s"})">${fmtPct(v)}</td>`;
-    }).join("")}</tr>`).join("");
-
-    const rangeTabs = `<div class="tabs" role="group" aria-label="Time range">
-      <button data-range="all" aria-pressed="${state.range === "all"}">All data</button>
-      <button data-range="recent" aria-pressed="${state.range === "recent"}">Last ${data.recentDays} days</button></div>`;
+    const facTabs = data.facilities.length > 1 ? `<div class="tabs facilities" role="group" aria-label="Rec center">${data.facilities.map(f =>
+      `<button data-fac="${esc(f.code)}" aria-pressed="${f.code === fac.code}">${esc(f.name)}</button>`).join("")}</div>` : "";
+    const groupTabs = groups.length > 1 ? `<div class="tabs" role="group" aria-label="Area type">${groups.map(g =>
+      `<button data-group="${esc(g)}" aria-pressed="${g === state.group}">${esc(g)}</button>`).join("")}</div>` : "";
+    const viewTabs = `<div class="tabs" role="group" aria-label="Which readings">${["term", "all"].map(v =>
+      `<button data-view="${v}" aria-pressed="${v === viewId}" title="Readings since ${esc(fac.views[v].since)}">${esc(fac.views[v].label)}</button>`).join("")}</div>`;
+    const chips = DAYS.map(d => `<button data-day="${d}" aria-pressed="${d === day}">${d === now.day ? '<span class="today">Today</span>' : ""}${d}</button>`).join("");
+    const combined = view.columns.length < 7 ? `<p class="chip-note">${esc(view.columns[0])} are averaged together for ${esc(view.label)}, to have enough readings.</p>` : `<p class="chip-note"></p>`;
+    const { notes, hide } = notesFor(loc, viewId);
+    const noteHtml = notes.map(n => `<p class="notice">${esc(n)}</p>`).join("");
 
     app.innerHTML = `
+      ${facTabs}
       <section>
         <div class="section-head">
-          <div><h2>Latest reading</h2><p class="hint">Pick an area to see its weekly pattern.</p></div>
-          <div class="tabs" role="group" aria-label="Area type">${GROUPS.map(g => `<button data-group="${g}" aria-pressed="${g === state.group}">${g}</button>`).join("")}</div>
+          <div><h2>Latest counts</h2><p class="hint">Pick an area to see its best times.</p></div>
+          ${groupTabs}
         </div>
-        <div class="cards">${cards}</div>
+        <div class="cards">${inGroup.map(l => cardHtml(fac, l, viewId, now)).join("")}</div>
+        <button class="jump" data-jump="best">See best times for ${esc(loc.name)} ↓</button>
       </section>
 
       <section>
-        <div class="panel">
-          <div class="panel-title">
-            <h2>Best time to go: ${esc(loc.name)}</h2>
-            ${rangeTabs}
-          </div>
-          <div class="chips" role="group" aria-label="Day">${chips}</div>
-          ${best}
-          <div class="bars">${bars}</div>
+        <div class="panel" id="best">
+          <div class="panel-title"><h2>Best time to go: ${esc(loc.name)}</h2>${viewTabs}</div>
+          ${noteHtml}
+          ${hide ? "" : `<div class="chips" role="group" aria-label="Day">${chips}</div>${combined}${bestHtml(fac, loc, viewId, now)}`}
         </div>
-
-        <div class="panel">
-          <div class="panel-title"><h2>Weekly pattern</h2><span class="hint">Average % full · outlined cell = now</span></div>
-          <div class="heat-scroll"><table class="heat"><thead>${head}</thead><tbody>${body}</tbody></table></div>
-          <div class="legend"><span>Quieter</span><span class="ramp"></span><span>Busier (${fmtPct(max)})</span><span>· Faded = fewer than 3 readings</span></div>
-        </div>
+        ${hide ? "" : `<div class="panel">
+          <div class="panel-title"><h2>Weekly pattern: ${esc(loc.name)}</h2><span class="hint">Average % full · ${esc(view.label)}</span></div>
+          ${heatHtml(fac, loc, viewId, now)}
+        </div>`}
       </section>`;
+
+    if (hashInUse) {
+      const h = `#${fac.code}/${loc.id}`;
+      if (location.hash !== h) history.replaceState(null, "", h);
+    }
+  }
+
+  function rerender(announce) {
+    const a = document.activeElement;
+    let selector = null;
+    if (a && a !== document.body && app.contains(a) && a.dataset) {
+      const key = Object.keys(a.dataset)[0];
+      if (key) selector = `[data-${key}="${CSS.escape(a.dataset[key])}"]`;
+    }
+    try {
+      render();
+    } catch (err) {
+      console.error(err);
+      app.innerHTML = `<p class="error">Something went wrong showing this view. Try another area or reload the page.</p>`;
+      return;
+    }
+    if (selector) {
+      const el = app.querySelector(selector);
+      if (el) el.focus({ preventScroll: true });
+    }
+    if (announce) {
+      const fac = facility(), loc = fac.locations.find(l => l.id === state.loc);
+      const viewId = fac.views[state.view] ? state.view : fac.defaultView;
+      announceEl.textContent = `Showing ${loc.name} at ${fac.name}, ${DAY_NAMES[state.day || etParts(new Date()).day]}, ${fac.views[viewId].label}.`;
+    }
+  }
+
+  function readHash() {
+    let raw = "";
+    try { raw = decodeURIComponent(location.hash.slice(1)).toLowerCase(); } catch { return; }
+    if (!raw) return;
+    const [a, b] = raw.split("/");
+    let fac = data.facilities.find(f => f.code === a), loc = null;
+    if (fac) loc = fac.locations.find(l => l.id === b) || null;
+    else {  // links from before the rec center switch: #lap-pool
+      fac = data.facilities.find(f => f.code === "rpac");
+      loc = fac && fac.locations.find(l => l.id === a);
+      if (!loc) return;
+    }
+    hashInUse = true;
+    state.fac = fac.code;
+    state.group = loc ? loc.group : null;
+    state.loc = loc ? loc.id : null;
   }
 
   app.addEventListener("click", e => {
     const b = e.target.closest("button");
-    if (!b) return;
-    if (b.dataset.group) { state.group = b.dataset.group; state.loc = null; }
-    if (b.dataset.loc) { state.loc = b.dataset.loc; history.replaceState(null, "", "#" + b.dataset.loc); }
-    if (b.dataset.day) state.day = b.dataset.day;
-    if (b.dataset.range) state.range = b.dataset.range;
-    render();
+    if (!b || !app.contains(b)) return;
+    const d = b.dataset;
+    if (d.jump) { document.getElementById(d.jump)?.scrollIntoView({ behavior: "smooth", block: "start" }); return; }
+    if (d.fac) { state.fac = d.fac; state.group = null; state.loc = null; }
+    else if (d.group) { state.group = d.group; state.loc = null; }
+    else if (d.loc) state.loc = d.loc;
+    else if (d.day) state.day = d.day;
+    else if (d.view) state.view = d.view;
+    else return;
+    if (d.fac || d.group || d.loc) hashInUse = true;
+    rerender(true);
   });
 
-  fetch("data.json", { cache: "no-cache" })
-    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(d => {
+  async function load() {
+    lastFetch = Date.now();
+    try {
+      const r = await fetch("data.json", { cache: "no-cache" });
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const d = await r.json();
+      if (d.version !== 2 || !Array.isArray(d.facilities) || !d.facilities.length) throw new Error("unexpected data format");
+      const first = !data, changed = first || d.last !== data.last;
       data = d;
-      readHash();
-      const hrs = (Date.now() - new Date(d.last)) / 3600000;
-      const when = new Date(d.last).toLocaleString("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
-      const since = new Date(d.first).toLocaleDateString("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", year: "numeric" });
-      document.getElementById("stamp").innerHTML =
-        `<span class="dot ${hrs > 3 ? "stale" : ""}"></span><span>Last reading ${when} ET (${ago(d.last)}) · tracking since ${since}</span>`;
-      render();
-      setInterval(render, 5 * 60 * 1000); // keep "now" highlights current
-    })
-    .catch(err => { app.innerHTML = `<p class="error">Couldn't load data (${esc(err.message)}).</p>`; });
+      if (first) readHash();
+      if (changed) rerender(); else renderStamp();
+    } catch (err) {
+      if (!data) app.innerHTML = `<p class="error">Couldn't load the data (${esc(err.message)}). Try reloading the page.</p>`;
+    }
+  }
+
+  readPalette();
+  window.addEventListener("hashchange", () => { if (data) { readHash(); rerender(true); } });
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { readPalette(); if (data) rerender(); });
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden || !data) return;
+    if (Date.now() - lastFetch > 60 * 1000) load();
+    rerender();
+  });
+  let tick = 0;
+  setInterval(() => {
+    if (document.hidden || !data) return;
+    tick++;
+    if (Date.now() - lastFetch >= REFRESH_MS) load();
+    else if (tick % 5 === 0) rerender();   // keeps "now" and "Next 3 hours" current
+    else renderStamp();
+  }, 60 * 1000);
+  load();
 })();
 </script>
 </body>
