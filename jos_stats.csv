@@ -1,0 +1,6 @@
+timestamp,day_of_week,hour,location,count,capacity,percent,updated,closed,location_id
+2026-11-04 18:47:24,Wed,18,JOS Cardio Area,19,60,31.7,2026-11-04 18:38:43,0,4241
+2026-11-04 18:47:24,Wed,18,JOS Court 1 ,12,50,24.0,2026-11-04 18:38:44,0,4177
+2026-11-04 18:47:24,Wed,18,JOS Court 2 ,12,50,24.0,2026-11-04 18:38:45,0,5394
+2026-11-04 18:47:24,Wed,18,JOS Functional Training Space,4,40,10.0,2026-11-04 18:38:43,0,4363
+2026-11-04 18:47:24,Wed,18,JOS Weight Floor,51,125,40.8,2026-11-04 18:38:45,0,4180

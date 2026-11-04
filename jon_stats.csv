@@ -1,0 +1,6 @@
+timestamp,day_of_week,hour,location,count,capacity,percent,updated,closed,location_id
+2026-11-04 18:47:24,Wed,18,JON - Tennis Court 1 - 2,12,50,24.0,2026-11-04 18:31:49,0,8326
+2026-11-04 18:47:24,Wed,18,JON Cardio Area,1,25,4.0,2026-11-04 18:31:47,0,4365
+2026-11-04 18:47:24,Wed,18,JON Deadlift Platform,0,12,0.0,2026-11-04 18:31:48,0,4244
+2026-11-04 18:47:24,Wed,18,JON Turf,6,100,6.0,2026-11-04 18:31:48,0,4243
+2026-11-04 18:47:24,Wed,18,JON Weight Floor,24,100,24.0,2026-11-04 18:31:46,0,4179
