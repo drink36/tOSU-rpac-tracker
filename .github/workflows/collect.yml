@@ -42,10 +42,11 @@ jobs:
       - run: pip install -r requirements.txt
       - run: python rpac.py --grid
       - run: python rpac.py --readme
-      - name: Commit grid and readme
+      - run: python rpac.py --site
+      - name: Commit grid, readme and site data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add rpac_grid.csv README.md
+          git add rpac_grid.csv README.md docs/data.json
           git diff --staged --quiet || git commit -m "grid: $(date -u '+%Y-%m-%d %H:%M UTC')"
           git push

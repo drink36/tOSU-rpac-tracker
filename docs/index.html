@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RPAC Crowd Tracker</title>
+<meta name="description" content="When is the RPAC at Ohio State least crowded? Historical occupancy for the pools, gyms and fitness floors.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23ba0c2f'/><path d='M5 20c3-3 5-3 8 0s5 3 8 0 5-3 6-1' stroke='white' stroke-width='3' fill='none' stroke-linecap='round'/></svg>">
+<style>
+  :root {
+    --bg: #f6f6f4;
+    --surface: #ffffff;
+    --surface-2: #f0efec;
+    --text: #1d1d1b;
+    --muted: #6b6a66;
+    --border: #e3e2de;
+    --accent: #ba0c2f;
+    --accent-soft: #fbe9ec;
+    --heat-lo: #f3f1ee;
+    --heat-hi: #ba0c2f;
+    --quiet: #1f7a4d;
+    --busy: #b4231f;
+    --shadow: 0 1px 2px rgba(0,0,0,.05), 0 4px 16px rgba(0,0,0,.04);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #121211;
+      --surface: #1c1c1a;
+      --surface-2: #262624;
+      --text: #ecebe8;
+      --muted: #a09e99;
+      --border: #32312e;
+      --accent: #ff5a6e;
+      --accent-soft: #3a1c21;
+      --heat-lo: #232321;
+      --heat-hi: #e8324d;
+      --quiet: #5fcf95;
+      --busy: #ff7a70;
+      --shadow: none;
+      color-scheme: dark;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-variant-numeric: tabular-nums;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 16px; }
+  a { color: var(--accent); }
+
+  header { padding: 40px 0 8px; }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 0 0 6px; }
+  h1 { font-size: clamp(28px, 5vw, 40px); line-height: 1.1; margin: 0 0 10px; letter-spacing: -.02em; }
+  .lede { color: var(--muted); margin: 0; max-width: 60ch; }
+  .stamp { margin-top: 14px; font-size: 14px; color: var(--muted); display: flex; align-items: baseline; gap: 8px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--quiet); display: inline-block; flex: none; transform: translateY(-1px); }
+  .dot.stale { background: #c9a227; }
+
+  h2 { font-size: 20px; margin: 0; letter-spacing: -.01em; }
+  section { margin-top: 28px; }
+  .section-head { display: flex; align-items: end; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+  .hint { font-size: 14px; color: var(--muted); margin: 2px 0 0; }
+
+  .tabs { display: inline-flex; background: var(--surface-2); border-radius: 999px; padding: 4px; gap: 2px; flex-wrap: wrap; }
+  .tabs button {
+    appearance: none; border: 0; background: transparent; color: var(--muted);
+    font: inherit; font-size: 14px; font-weight: 600; padding: 7px 14px; border-radius: 999px; cursor: pointer;
+  }
+  .tabs button[aria-pressed="true"] { background: var(--surface); color: var(--text); box-shadow: var(--shadow); }
+  .tabs button:focus-visible, .card:focus-visible, .chips button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
+  .card {
+    appearance: none; text-align: left; font: inherit; color: inherit; cursor: pointer;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px;
+    box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 8px;
+    transition: border-color .15s, transform .15s;
+  }
+  .card:hover { transform: translateY(-1px); }
+  .card[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset, var(--shadow); }
+  .card .name { font-weight: 600; font-size: 15px; }
+  .card .big { font-size: 26px; font-weight: 700; letter-spacing: -.02em; line-height: 1; }
+  .card .big small { font-size: 14px; font-weight: 500; color: var(--muted); letter-spacing: 0; }
+  .meter { height: 6px; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
+  .meter span { display: block; height: 100%; background: var(--accent); border-radius: inherit; }
+  .card .vs { font-size: 13px; color: var(--muted); line-height: 1.4; }
+  .card .vs b { color: var(--text); font-weight: 600; }
+  .vs .q { color: var(--quiet); font-weight: 600; }
+  .vs .b { color: var(--busy); font-weight: 600; }
+
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 20px; box-shadow: var(--shadow); }
+  .panel + .panel { margin-top: 14px; }
+  .panel-title { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .chips button {
+    appearance: none; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+    border: 1px solid var(--border); background: transparent; color: var(--text);
+    padding: 6px 12px; border-radius: 999px; min-width: 52px;
+  }
+  .chips button[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .chips button .today { display: block; font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; opacity: .7; line-height: 1; }
+
+  .best { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
+  .best div { background: var(--accent-soft); border-radius: 12px; padding: 10px 12px; }
+  .best .rank { font-size: 12px; color: var(--muted); font-weight: 600; }
+  .best .when { font-size: 20px; font-weight: 700; letter-spacing: -.01em; }
+  .best .how { font-size: 13px; color: var(--muted); }
+
+  .bars { display: grid; gap: 4px; }
+  .bar { display: grid; grid-template-columns: 52px 1fr 64px; align-items: center; gap: 10px; font-size: 13px; }
+  .bar .h { color: var(--muted); text-align: right; }
+  .bar .track { height: 18px; background: var(--surface-2); border-radius: 5px; overflow: hidden; }
+  .bar .fill { height: 100%; border-radius: 5px; background: color-mix(in oklab, var(--accent) 55%, var(--surface-2)); }
+  .bar.top .fill { background: var(--quiet); }
+  .bar.now .h { color: var(--text); font-weight: 700; }
+  .bar.now .track { outline: 2px solid var(--text); outline-offset: 1px; }
+  .bar .v { color: var(--muted); }
+  .bar.empty .v { font-style: italic; }
+
+  .heat-scroll { overflow-x: auto; margin: 0 -4px; padding: 0 4px; }
+  table.heat { border-collapse: separate; border-spacing: 3px; width: 100%; font-size: 12px; table-layout: fixed; }
+  .heat th { font-weight: 600; color: var(--muted); padding: 2px 4px; }
+  .heat th.hr { text-align: right; white-space: nowrap; width: 56px; }
+  .heat th.today-col { color: var(--accent); }
+  .heat td {
+    height: 28px; text-align: center; border-radius: 5px;
+    background: color-mix(in oklab, var(--heat-hi) calc(var(--t) * 100%), var(--heat-lo));
+    color: var(--text);
+  }
+  .heat td.dark { color: #fff; }
+  .heat td.na { background: transparent; color: var(--muted); opacity: .5; }
+  .heat td.thin { opacity: .55; }
+  .heat td.now { outline: 2px solid var(--text); outline-offset: 1px; font-weight: 700; }
+  .legend { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); margin-top: 12px; flex-wrap: wrap; }
+  .legend .ramp { width: 140px; height: 10px; border-radius: 999px; background: linear-gradient(90deg, var(--heat-lo), var(--heat-hi)); border: 1px solid var(--border); }
+
+  footer { margin: 40px 0 32px; font-size: 14px; color: var(--muted); border-top: 1px solid var(--border); padding-top: 18px; }
+  footer p { margin: 0 0 8px; }
+
+  .loading, .error { padding: 40px 0; color: var(--muted); }
+
+  @media (max-width: 560px) {
+    header { padding-top: 28px; }
+    .panel { padding: 16px; border-radius: 14px; }
+    .best { grid-template-columns: 1fr; }
+    .best div { display: flex; align-items: baseline; gap: 10px; }
+    .cards { grid-template-columns: repeat(2, 1fr); }
+    .card .big { font-size: 22px; }
+    .bar { grid-template-columns: 44px 1fr 56px; gap: 8px; }
+    table.heat { font-size: 10.5px; border-spacing: 2px; }
+    .heat th.hr { width: 38px; padding: 0 3px 0 0; }
+    .heat td { height: 26px; letter-spacing: -.02em; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Ohio State · RPAC</p>
+    <h1>When is the RPAC least crowded?</h1>
+    <p class="lede">Occupancy for the pools, gyms and fitness floors, recorded automatically and averaged by day and hour, so you can pick a quiet time.</p>
+    <div class="stamp" id="stamp"></div>
+  </header>
+
+  <main id="app"><p class="loading">Loading data…</p></main>
+
+  <footer>
+    <p>Data comes from the occupancy counts on the RecSports website, recorded by a scheduled GitHub Action. Percent means people ÷ posted capacity. Averages are only as good as the samples behind them: faded cells have fewer than 3 readings.</p>
+    <p><a href="https://github.com/drink36/tOSU-rpac-tracker">Source on GitHub</a> · <a href="https://github.com/drink36/tOSU-rpac-tracker/blob/main/rpac_stats.csv">Raw data (CSV)</a> · Not affiliated with Ohio State.</p>
+  </footer>
+</div>
+
+<script>
+(() => {
+  const HOURS = Array.from({ length: 17 }, (_, i) => i + 6); // 6 AM – 10 PM
+  const GROUPS = ["Pools", "Fitness", "Gyms & Courts"];
+  const DAY_NAMES = { Mon: "Monday", Tue: "Tuesday", Wed: "Wednesday", Thu: "Thursday", Fri: "Friday", Sat: "Saturday", Sun: "Sunday" };
+
+  const app = document.getElementById("app");
+  const state = { group: "Pools", loc: null, day: null, range: "all" };
+  let data;
+
+  const hourLabel = h => `${h % 12 || 12} ${h < 12 ? "AM" : "PM"}`;
+  const fmtPct = v => v == null ? "–" : `${v < 10 ? v.toFixed(1) : Math.round(v)}%`;
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  function ago(iso) {
+    const mins = Math.round((Date.now() - new Date(iso)) / 60000);
+    if (mins < 60) return `${mins} min ago`;
+    const hrs = Math.round(mins / 60);
+    if (hrs < 48) return `${hrs} hour${hrs === 1 ? "" : "s"} ago`;
+    return `${Math.round(hrs / 24)} days ago`;
+  }
+
+  function etSlot(date) {
+    const parts = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", weekday: "short", hour: "numeric", hourCycle: "h23" })
+      .formatToParts(date);
+    const get = t => parts.find(p => p.type === t).value;
+    return { day: get("weekday"), hour: Number(get("hour")) % 24 };
+  }
+
+  function readHash() {
+    const id = decodeURIComponent(location.hash.slice(1));
+    const loc = data.locations.find(l => l.id === id);
+    if (loc) { state.loc = loc.id; state.group = loc.group; }
+  }
+
+  function render() {
+    const now = etSlot(new Date());
+    const inGroup = data.locations.filter(l => l.group === state.group);
+    if (!inGroup.some(l => l.id === state.loc)) state.loc = inGroup[0].id;
+    const loc = data.locations.find(l => l.id === state.loc);
+    const summary = loc[state.range];
+    const day = state.day ?? now.day;
+    const dIdx = data.days.indexOf(day);
+
+    // ---- Right now cards
+    const cards = inGroup.map(l => {
+      const at = etSlot(new Date(l.latest.time));
+      const typical = l.all.pct[data.days.indexOf(at.day)][at.hour];
+      let vs = "";
+      if (typical != null) {
+        const diff = l.latest.pct - typical;
+        vs = Math.abs(diff) < 2 ? "About usual" : diff < 0 ? `<span class="q">Quieter</span> than usual` : `<span class="b">Busier</span> than usual`;
+        vs += ` (${fmtPct(typical)})`;
+      }
+      const pct = Math.min(100, l.latest.pct);
+      return `<button class="card" data-loc="${l.id}" aria-pressed="${l.id === state.loc}">
+        <span class="name">${esc(l.name)}</span>
+        <span class="big">${l.latest.count}<small> / ${l.capacity} people</small></span>
+        <span class="meter"><span style="width:${pct}%"></span></span>
+        <span class="vs"><b>${fmtPct(l.latest.pct)} full</b>${vs ? "<br>" + vs : ""}</span>
+      </button>`;
+    }).join("");
+
+    // ---- Best times for the chosen day
+    const dayVals = HOURS.map(h => ({ h, v: summary.pct[dIdx][h], p: summary.people[dIdx][h], n: summary.n[dIdx][h] }));
+    const ranked = dayVals.filter(x => x.v != null && x.n >= 2).sort((a, b) => a.v - b.v || a.h - b.h);
+    const top = ranked.slice(0, 3);
+    const topSet = new Set(top.map(x => x.h));
+    const maxDay = Math.max(1, ...dayVals.map(x => x.v ?? 0));
+
+    const best = top.length ? `<div class="best">${top.map((x, i) => `
+        <div><span class="rank">${["Quietest", "2nd", "3rd"][i]}</span>
+        <span class="when">${hourLabel(x.h)}</span>
+        <span class="how">${fmtPct(x.v)} full · ~${Math.round(x.p)} people</span></div>`).join("")}</div>`
+      : `<p class="hint">Not enough data for ${DAY_NAMES[day]} yet.</p>`;
+
+    const bars = dayVals.map(x => {
+      const cls = ["bar", topSet.has(x.h) ? "top" : "", day === now.day && x.h === now.hour ? "now" : "", x.v == null ? "empty" : ""].join(" ");
+      const w = x.v == null ? 0 : Math.max(1.5, x.v / maxDay * 100);
+      return `<div class="${cls}" title="${x.n} reading${x.n === 1 ? "" : "s"}">
+        <span class="h">${hourLabel(x.h)}</span>
+        <span class="track"><span class="fill" style="display:block;width:${w}%"></span></span>
+        <span class="v">${x.v == null ? "no data" : fmtPct(x.v)}</span></div>`;
+    }).join("");
+
+    const chips = data.days.map(d => `<button data-day="${d}" aria-pressed="${d === day}">${d === now.day ? '<span class="today">Today</span>' : ""}${d}</button>`).join("");
+
+    // ---- Weekly heatmap
+    const vals = HOURS.flatMap(h => data.days.map((_, i) => summary.pct[i][h])).filter(v => v != null);
+    const max = Math.max(5, ...vals);
+    const head = `<tr><th></th>${data.days.map(d => `<th class="${d === now.day ? "today-col" : ""}">${d}</th>`).join("")}</tr>`;
+    const body = HOURS.map(h => `<tr><th class="hr">${hourLabel(h)}</th>${data.days.map((d, i) => {
+      const v = summary.pct[i][h], n = summary.n[i][h], p = summary.people[i][h];
+      if (v == null) return `<td class="na" title="No data">·</td>`;
+      const t = Math.min(1, v / max);
+      const cls = [t > .55 ? "dark" : "", n < 3 ? "thin" : "", d === now.day && h === now.hour ? "now" : ""].join(" ");
+      return `<td class="${cls}" style="--t:${t.toFixed(3)}" title="${DAY_NAMES[d]} ${hourLabel(h)}: ${fmtPct(v)} full, ~${Math.round(p)} people (${n} reading${n === 1 ? "" : "s"})">${fmtPct(v)}</td>`;
+    }).join("")}</tr>`).join("");
+
+    const rangeTabs = `<div class="tabs" role="group" aria-label="Time range">
+      <button data-range="all" aria-pressed="${state.range === "all"}">All data</button>
+      <button data-range="recent" aria-pressed="${state.range === "recent"}">Last ${data.recentDays} days</button></div>`;
+
+    app.innerHTML = `
+      <section>
+        <div class="section-head">
+          <div><h2>Latest reading</h2><p class="hint">Pick an area to see its weekly pattern.</p></div>
+          <div class="tabs" role="group" aria-label="Area type">${GROUPS.map(g => `<button data-group="${g}" aria-pressed="${g === state.group}">${g}</button>`).join("")}</div>
+        </div>
+        <div class="cards">${cards}</div>
+      </section>
+
+      <section>
+        <div class="panel">
+          <div class="panel-title">
+            <h2>Best time to go: ${esc(loc.name)}</h2>
+            ${rangeTabs}
+          </div>
+          <div class="chips" role="group" aria-label="Day">${chips}</div>
+          ${best}
+          <div class="bars">${bars}</div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title"><h2>Weekly pattern</h2><span class="hint">Average % full · outlined cell = now</span></div>
+          <div class="heat-scroll"><table class="heat"><thead>${head}</thead><tbody>${body}</tbody></table></div>
+          <div class="legend"><span>Quieter</span><span class="ramp"></span><span>Busier (${fmtPct(max)})</span><span>· Faded = fewer than 3 readings</span></div>
+        </div>
+      </section>`;
+  }
+
+  app.addEventListener("click", e => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    if (b.dataset.group) { state.group = b.dataset.group; state.loc = null; }
+    if (b.dataset.loc) { state.loc = b.dataset.loc; history.replaceState(null, "", "#" + b.dataset.loc); }
+    if (b.dataset.day) state.day = b.dataset.day;
+    if (b.dataset.range) state.range = b.dataset.range;
+    render();
+  });
+
+  fetch("data.json", { cache: "no-cache" })
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(d => {
+      data = d;
+      readHash();
+      const hrs = (Date.now() - new Date(d.last)) / 3600000;
+      const when = new Date(d.last).toLocaleString("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+      const since = new Date(d.first).toLocaleDateString("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", year: "numeric" });
+      document.getElementById("stamp").innerHTML =
+        `<span class="dot ${hrs > 3 ? "stale" : ""}"></span><span>Last reading ${when} ET (${ago(d.last)}) · tracking since ${since}</span>`;
+      render();
+      setInterval(render, 5 * 60 * 1000); // keep "now" highlights current
+    })
+    .catch(err => { app.innerHTML = `<p class="error">Couldn't load data (${esc(err.message)}).</p>`; });
+})();
+</script>
+</body>
+</html>

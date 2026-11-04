@@ -1,5 +1,6 @@
 import requests
 import csv
+import json
 import os
 import time
 import signal
@@ -129,6 +130,7 @@ def export_grid():
 
 
 README_HOURS = list(range(8, 21))  # 8am to 8pm
+SITE_URL = "https://drink36.github.io/tOSU-rpac-tracker/"
 
 
 def export_readme():
@@ -153,6 +155,7 @@ def export_readme():
     lines = []
     lines.append("# RPAC Aquatic Center Occupancy\n")
     lines.append("Wondering when is the best time to go swimming? This tracker collects live occupancy data from the **Recreation and Physical Activity Center (RPAC)** at **The Ohio State University** every 15 minutes and builds up a historical average so you can find the least crowded times to swim.\n")
+    lines.append(f"**[📊 Open the interactive site]({SITE_URL})**: latest readings, best times for each day, and every area of the RPAC (gyms and fitness floors too).\n")
     lines.append(f"_Last updated: {updated}_\n")
     lines.append("Lower % = fewer people in the pool. Empty cells mean no data collected yet for that time slot.\n")
 
@@ -178,6 +181,110 @@ def export_readme():
         f.write("\n".join(lines) + "\n")
 
     print("README.md updated.")
+
+
+SITE_DATA_FILE = os.path.join("docs", "data.json")
+RECENT_DAYS = 60
+
+
+def short_name(loc):
+    name = loc.strip().replace("RPAC ", "").replace("Aquatic Center - ", "")
+    return " ".join(name.replace(" - ", "–").replace("-", "–").split())
+
+
+def location_group(loc):
+    if "Aquatic" in loc:
+        return "Pools"
+    if "Gym" in loc or "Court" in loc:
+        return "Gyms & Courts"
+    return "Fitness"
+
+
+def _grid(cells, value):
+    """Turn {(day, hour): [samples]} into a 7x24 grid of averages (None = no data)."""
+    grid = []
+    for day in DAYS:
+        row = []
+        for hour in HOURS:
+            samples = cells.get((day, hour))
+            row.append(round(value(samples), 1) if samples else None)
+        grid.append(row)
+    return grid
+
+
+def _summary(cells):
+    return {
+        "pct": _grid(cells, lambda s: sum(p for p, _ in s) / len(s)),
+        "people": _grid(cells, lambda s: sum(c for _, c in s) / len(s)),
+        "n": [[len(cells.get((d, h), [])) for h in HOURS] for d in DAYS],
+    }
+
+
+def iso(dt):
+    """Timestamps in the CSV are ET wall-clock times; tag them so browsers read them right."""
+    return dt.replace(tzinfo=ET).isoformat(timespec="seconds")
+
+
+def export_site():
+    """Write docs/data.json, the data behind the website (docs/index.html)."""
+    if not os.path.exists(DATA_FILE):
+        print("No data collected yet.")
+        return
+
+    rows = []
+    with open(DATA_FILE, newline="") as f:
+        for row in csv.DictReader(f):
+            if not row["percent"]:
+                continue
+            dt = datetime.strptime(row["timestamp"], "%Y-%m-%d %H:%M:%S")
+            rows.append((dt, row["day_of_week"], int(row["hour"]), row["location"],
+                         int(row["count"]), int(row["capacity"]), float(row["percent"])))
+    if not rows:
+        print("No data collected yet.")
+        return
+
+    first = min(r[0] for r in rows)
+    last = max(r[0] for r in rows)
+    recent_cutoff = last.timestamp() - RECENT_DAYS * 86400
+
+    all_cells = defaultdict(lambda: defaultdict(list))     # loc -> (day, hour) -> [(pct, count)]
+    recent_cells = defaultdict(lambda: defaultdict(list))
+    latest = {}                                             # loc -> (dt, count, capacity, pct)
+
+    for dt, day, hour, loc, count, cap, pct in rows:
+        key = (day, hour)
+        all_cells[loc][key].append((pct, count))
+        if dt.timestamp() >= recent_cutoff:
+            recent_cells[loc][key].append((pct, count))
+        if loc not in latest or dt >= latest[loc][0]:
+            latest[loc] = (dt, count, cap, pct)
+
+    locations = []
+    for loc in sorted(all_cells, key=lambda l: (["Pools", "Fitness", "Gyms & Courts"].index(location_group(l)), short_name(l))):
+        dt, count, cap, pct = latest[loc]
+        locations.append({
+            "id": short_name(loc).lower().replace(" ", "-").replace("–", "-").replace("&", "and"),
+            "name": short_name(loc),
+            "group": location_group(loc),
+            "capacity": cap,
+            "latest": {"time": iso(dt), "count": count, "pct": pct},
+            "recent": _summary(recent_cells[loc]),
+            "all": _summary(all_cells[loc]),
+        })
+
+    data = {
+        "generated": datetime.now(ET).isoformat(timespec="seconds"),
+        "first": iso(first),
+        "last": iso(last),
+        "recentDays": RECENT_DAYS,
+        "days": DAYS,
+        "locations": locations,
+    }
+
+    os.makedirs(os.path.dirname(SITE_DATA_FILE), exist_ok=True)
+    with open(SITE_DATA_FILE, "w") as f:
+        json.dump(data, f, separators=(",", ":"))
+    print(f"Site data written to {os.path.abspath(SITE_DATA_FILE)}")
 
 
 def poll_once():
@@ -234,5 +341,7 @@ if __name__ == "__main__":
         export_grid()
     elif "--readme" in sys.argv:
         export_readme()
+    elif "--site" in sys.argv:
+        export_site()
     else:
         poll_once()
