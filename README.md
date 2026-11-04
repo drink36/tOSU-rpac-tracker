@@ -1,100 +1,144 @@
-# RPAC Aquatic Center Occupancy
+# RPAC Crowd Tracker
 
-Wondering when is the best time to go swimming? This tracker collects live occupancy data from the **Recreation and Physical Activity Center (RPAC)** at **The Ohio State University** every 15 minutes and builds up a historical average so you can find the least crowded times to swim.
+Wondering when the pool at Ohio State's **RPAC** (Recreation and Physical Activity Center) is least crowded? This project records the head counts that RecSports publishes for every area of the RPAC and the other rec centers, and turns them into typical crowds by day and hour.
 
-**[📊 Open the interactive site](https://drink36.github.io/tOSU-rpac-tracker/)**: latest readings, best times for each day, and every area of the RPAC (gyms and fitness floors too).
+**[📊 Open the site](https://drink36.github.io/tOSU-rpac-tracker/)**: the latest counts, the quietest hours for any day, and a weekly heatmap for every pool, gym and fitness floor at the RPAC, North Rec, Jesse Owens North and South, and the ARC.
 
-_Last updated: 2026-11-04 18:20 ET_
+## How it works
 
-Lower % = fewer people in the pool. Empty cells mean no data collected yet for that time slot.
+- A GitHub Action reads the counts from the RecSports website and appends them to one CSV per rec center (`rpac_stats.csv`, `nrc_stats.csv`, `jon_stats.csv`, `jos_stats.csv`, `arc_stats.csv`). It's scheduled every 15 minutes, but GitHub runs it a few times a day in practice.
+- RecSports staff enter the counts, so a number can sit unchanged for hours. A reading only counts when its number was updated shortly before it was recorded. Closed hours and counts left over from the night before are skipped.
+- Pool counts are updated every few minutes. Gym and fitness counts are entered by hand, often hours apart, so the site shows their latest count but no hourly pattern.
+- The site and the tables below default to the current semester, because summer hours and crowds are different.
+- If a fetch fails, the run fails, and GitHub emails the repo owner.
 
+## Run it locally
 
-## Aquatic Center - Class Pool
+```bash
+pip install -r requirements.txt
+```
 
-| Hour | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
-|------|-----|-----|-----|-----|-----|-----|-----|
-| 08:00 | 4.5% | 6.5% | 7.8% | 7.4% | 6.2% | 2.5% | 6.7% |
-| 09:00 | 6.5% | 7.9% | 7.1% | 6.2% | 8.7% | 5.4% | 6.5% |
-| 10:00 | 9.8% | 5.3% | 9.2% | 5.4% | 5.2% | 7.8% | 5.7% |
-| 11:00 | 9.2% | 5.0% | 5.2% | 5.8% | 7.1% | 11.1% | 7.9% |
-| 12:00 | 5.9% | 6.4% | 7.7% | 6.0% | 6.6% | 9.2% | 7.4% |
-| 13:00 | 7.2% | 7.7% | 7.0% | 10.2% | 7.8% | 9.6% | 12.8% |
-| 14:00 | 4.4% | 7.5% | 6.7% | 5.7% | 6.6% | 9.7% | 5.9% |
-| 15:00 | 5.6% | 6.0% | 10.2% | 9.2% | 7.1% | 12.5% | 13.1% |
-| 16:00 | 13.1% | 14.6% | 14.1% | 10.2% | 14.0% | 13.8% | 16.7% |
-| 17:00 | 20.3% | 21.9% | 18.6% | 18.9% | 20.7% | 18.4% | 16.5% |
-| 18:00 | 25.4% | 27.0% | 25.1% | 22.8% | 23.1% | 16.5% | 16.5% |
-| 19:00 | 11.5% | 2.7% | 4.4% | 3.2% | 3.2% | 7.4% | 1.7% |
-| 20:00 | 6.3% | 4.9% | 0.5% | 1.8% | 6.5% | 6.5% | 5.1% |
+```bash
+python rpac.py
+```
 
-## Aquatic Center - Comp Pool
+That records one reading for every rec center. To rebuild the site data (`docs/data.json`), the tables below and `rpac_grid.csv`:
 
-| Hour | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
-|------|-----|-----|-----|-----|-----|-----|-----|
-| 08:00 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
-| 09:00 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
-| 10:00 | 0.6% | 0.2% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
-| 11:00 | 0.2% | 0.2% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
-| 12:00 | 0.2% | 1.6% | 0.4% | 0.0% | 0.0% | 0.0% | 0.0% |
-| 13:00 | 0.8% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
-| 14:00 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
-| 15:00 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
-| 16:00 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
-| 17:00 | 0.3% | 0.0% | 0.2% | 0.0% | 0.0% | 0.0% | 0.0% |
-| 18:00 | 0.8% | 1.0% | 2.8% | 0.0% | 0.0% | 0.0% | 0.0% |
-| 19:00 | 2.2% | 1.0% | 0.1% | 0.0% | 0.0% | 0.0% | 0.0% |
-| 20:00 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
+```bash
+python rpac.py --site --readme --grid
+```
 
-## Aquatic Center - Hot Tub
+To preview the site, serve the `docs` folder and open http://localhost:8000:
 
-| Hour | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
-|------|-----|-----|-----|-----|-----|-----|-----|
-| 08:00 | 2.4% | 4.3% | 1.0% | 3.3% | 6.3% | 0.0% | 10.4% |
-| 09:00 | 4.8% | 2.4% | 5.2% | 3.6% | 4.1% | 3.2% | 10.1% |
-| 10:00 | 3.3% | 3.2% | 4.8% | 1.2% | 2.6% | 3.9% | 9.8% |
-| 11:00 | 2.9% | 5.1% | 7.4% | 3.3% | 4.5% | 6.0% | 11.7% |
-| 12:00 | 3.9% | 5.9% | 8.4% | 6.3% | 5.3% | 6.2% | 8.5% |
-| 13:00 | 8.3% | 6.4% | 5.4% | 7.4% | 7.7% | 6.2% | 13.1% |
-| 14:00 | 8.0% | 4.4% | 7.9% | 10.2% | 10.0% | 8.1% | 12.6% |
-| 15:00 | 7.4% | 5.6% | 7.2% | 9.4% | 8.8% | 9.1% | 12.6% |
-| 16:00 | 12.1% | 10.8% | 12.6% | 10.7% | 10.4% | 16.1% | 18.2% |
-| 17:00 | 11.8% | 20.0% | 16.5% | 11.1% | 16.7% | 14.1% | 23.1% |
-| 18:00 | 19.8% | 24.9% | 21.1% | 19.4% | 23.8% | 20.7% | 24.4% |
-| 19:00 | 9.2% | 3.8% | 4.8% | 6.2% | 0.8% | 10.8% | 4.2% |
-| 20:00 | 11.9% | 6.7% | 7.8% | 3.3% | 9.1% | 12.1% | 13.9% |
+```bash
+python -m http.server 8000 --directory docs
+```
 
-## Aquatic Center - Lap Pool
+`python rpac.py --stats` prints RPAC averages by month, and `python rpac.py --loop` polls every 5 minutes until you press Ctrl+C.
 
-| Hour | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
-|------|-----|-----|-----|-----|-----|-----|-----|
-| 08:00 | 12.9% | 15.5% | 16.4% | 15.8% | 12.3% | 5.0% | 5.3% |
-| 09:00 | 13.1% | 15.4% | 15.5% | 13.1% | 13.7% | 11.4% | 6.2% |
-| 10:00 | 15.8% | 12.7% | 17.6% | 12.9% | 11.6% | 11.0% | 3.6% |
-| 11:00 | 14.1% | 15.0% | 15.7% | 15.0% | 15.0% | 7.8% | 7.5% |
-| 12:00 | 15.1% | 11.8% | 16.0% | 13.0% | 15.0% | 8.6% | 9.6% |
-| 13:00 | 15.4% | 13.9% | 15.1% | 12.7% | 14.0% | 7.7% | 18.3% |
-| 14:00 | 11.0% | 15.5% | 15.7% | 13.2% | 18.6% | 9.9% | 12.7% |
-| 15:00 | 14.9% | 16.3% | 14.9% | 15.0% | 19.1% | 7.6% | 15.2% |
-| 16:00 | 22.2% | 16.5% | 21.1% | 18.8% | 17.6% | 8.2% | 15.4% |
-| 17:00 | 26.6% | 24.9% | 24.5% | 21.0% | 17.4% | 6.6% | 16.8% |
-| 18:00 | 30.5% | 19.9% | 24.6% | 20.3% | 22.0% | 8.9% | 17.4% |
-| 19:00 | 11.0% | 4.3% | 7.5% | 6.1% | 4.6% | 6.4% | 4.3% |
-| 20:00 | 14.9% | 7.0% | 4.9% | 4.5% | 9.1% | 5.3% | 8.0% |
+## Typical crowds at the RPAC pools
 
-## Aquatic Center - Leisure Pool
+Everything between the markers below is rewritten on every run; the rest of this file is safe to edit.
 
-| Hour | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
-|------|-----|-----|-----|-----|-----|-----|-----|
-| 08:00 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 2.2% |
-| 09:00 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.4% | 2.9% |
-| 10:00 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 1.4% | 1.3% |
-| 11:00 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 3.7% | 4.3% |
-| 12:00 | 0.0% | 0.1% | 0.0% | 0.0% | 0.0% | 3.5% | 2.8% |
-| 13:00 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 4.6% | 3.8% |
-| 14:00 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 4.5% | 4.7% |
-| 15:00 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 5.3% | 9.1% |
-| 16:00 | 0.5% | 2.4% | 1.5% | 0.6% | 2.3% | 7.0% | 9.6% |
-| 17:00 | 4.1% | 10.2% | 3.4% | 5.6% | 11.1% | 8.4% | 11.3% |
-| 18:00 | 6.4% | 7.1% | 9.1% | 5.7% | 12.1% | 6.9% | 12.1% |
-| 19:00 | 6.4% | 0.8% | 0.9% | 1.2% | 0.3% | 5.1% | 1.1% |
-| 20:00 | 5.5% | 0.0% | 0.8% | 0.9% | 3.0% | 0.7% | 3.4% |
+<!-- tables:start -->
+_Average % full by hour: Autumn 2026 (Mon–Thu combined), data through Nov 4, 2026, 6:19 PM ET. A blank cell has fewer than 5 readings. [See every area on the site](https://drink36.github.io/tOSU-rpac-tracker/)._
+
+### Class Pool (capacity 32)
+
+| Hour | Mon–Thu | Fri | Sat | Sun |
+|---|---|---|---|---|
+| 6 AM | 14% |  |  |  |
+| 7 AM | 12% |  |  |  |
+| 8 AM | 18% | 8.1% |  |  |
+| 9 AM | 11% |  |  |  |
+| 10 AM | 16% | 8.1% |  |  |
+| 11 AM | 7.2% |  | 12% |  |
+| 12 PM | 11% |  |  |  |
+| 1 PM | 14% | 15% |  |  |
+| 2 PM | 15% |  | 14% |  |
+| 3 PM | 15% | 16% |  | 11% |
+| 4 PM | 23% |  |  |  |
+| 5 PM | 20% | 22% |  | 18% |
+| 6 PM | 24% | 22% |  | 18% |
+| 7 PM | 16% |  | 12% |  |
+| 8 PM | 10% |  |  |  |
+| 9 PM | 5.9% |  |  |  |
+
+### Comp Pool (capacity 25)
+
+| Hour | Mon–Thu | Fri | Sat | Sun |
+|---|---|---|---|---|
+| 7 AM | 0.0% |  |  |  |
+| 11 AM | 0.8% |  |  |  |
+| 12 PM | 4.4% |  |  |  |
+| 3 PM | 0.0% |  |  |  |
+| 4 PM | 0.0% |  |  |  |
+| 5 PM | 1.6% |  |  |  |
+| 6 PM | 13% |  |  |  |
+| 7 PM | 4.0% |  |  |  |
+| 8 PM | 0.0% |  |  |  |
+| 9 PM | 0.0% |  |  |  |
+
+### Hot Tub (capacity 15)
+
+| Hour | Mon–Thu | Fri | Sat | Sun |
+|---|---|---|---|---|
+| 6 AM | 1.3% |  |  |  |
+| 7 AM | 6.7% |  |  |  |
+| 8 AM | 1.3% | 17% |  |  |
+| 9 AM | 4.7% |  |  |  |
+| 10 AM | 2.7% | 2.7% |  |  |
+| 11 AM | 4.7% |  | 6.7% |  |
+| 12 PM | 9.3% |  |  |  |
+| 1 PM | 11% | 10% |  |  |
+| 2 PM | 12% |  | 15% |  |
+| 3 PM | 10% | 13% |  | 12% |
+| 4 PM | 23% |  |  |  |
+| 5 PM | 19% | 21% |  | 25% |
+| 6 PM | 33% | 41% |  | 37% |
+| 7 PM | 27% |  | 11% |  |
+| 8 PM | 38% |  |  |  |
+| 9 PM | 33% |  |  |  |
+
+### Lap Pool (capacity 24)
+
+| Hour | Mon–Thu | Fri | Sat | Sun |
+|---|---|---|---|---|
+| 6 AM | 15% |  |  |  |
+| 7 AM | 17% |  |  |  |
+| 8 AM | 23% | 16% |  |  |
+| 9 AM | 15% |  |  |  |
+| 10 AM | 21% | 14% |  |  |
+| 11 AM | 15% |  | 8.3% |  |
+| 12 PM | 13% |  |  |  |
+| 1 PM | 17% | 16% |  |  |
+| 2 PM | 20% |  | 10% |  |
+| 3 PM | 19% | 22% |  | 27% |
+| 4 PM | 26% |  |  |  |
+| 5 PM | 30% | 23% |  | 24% |
+| 6 PM | 25% | 32% |  | 21% |
+| 7 PM | 20% |  | 23% |  |
+| 8 PM | 24% |  |  |  |
+| 9 PM | 21% |  |  |  |
+
+### Leisure Pool (capacity 40)
+
+| Hour | Mon–Thu | Fri | Sat | Sun |
+|---|---|---|---|---|
+| 6 AM | 0.0% |  |  |  |
+| 7 AM | 0.0% |  |  |  |
+| 8 AM | 0.0% | 0.0% |  |  |
+| 9 AM | 0.0% |  |  |  |
+| 10 AM | 0.0% | 0.0% |  |  |
+| 11 AM | 0.0% |  | 4.2% |  |
+| 12 PM | 0.0% |  |  |  |
+| 1 PM | 0.0% | 0.0% |  |  |
+| 2 PM | 0.0% |  | 14% |  |
+| 3 PM | 0.0% | 0.0% |  | 14% |
+| 4 PM | 1.5% |  |  |  |
+| 5 PM | 6.8% | 20% |  | 13% |
+| 6 PM | 16% | 18% |  | 16% |
+| 7 PM | 10% |  | 22% |  |
+| 8 PM | 6.8% |  |  |  |
+| 9 PM | 13% |  |  |  |
+<!-- tables:end -->
