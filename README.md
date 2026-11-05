@@ -41,11 +41,9 @@ python -m http.server 8000 --directory docs
 Everything between the markers below is rewritten on every run; the rest of this file is safe to edit.
 
 <!-- tables:start -->
-_Average % full by hour: Autumn 2026 (Mon–Thu combined), data through Nov 5, 2026, 6:32 AM ET. A blank cell has fewer than 5 readings. [See every area on the site](https://drink36.github.io/tOSU-rpac-tracker/)._
+_Average % full by hour: Autumn 2026 (Mon–Thu combined), data through Nov 5, 2026, 1:59 PM ET. A blank cell has fewer than 5 readings. [See every area on the site](https://drink36.github.io/tOSU-rpac-tracker/)._
 
 ### Class Pool (capacity 32)
-
-_Marked closed by RecSports at the last reading._
 
 | Hour | Mon–Thu | Fri | Sat | Sun |
 |---|---|---|---|---|
@@ -56,7 +54,7 @@ _Marked closed by RecSports at the last reading._
 | 10 AM | 16% | 8.1% |  |  |
 | 11 AM | 7.2% |  | 12% |  |
 | 12 PM | 11% |  |  |  |
-| 1 PM | 14% | 15% |  |  |
+| 1 PM | 13% | 15% |  |  |
 | 2 PM | 15% |  | 14% |  |
 | 3 PM | 15% | 16% |  | 11% |
 | 4 PM | 23% |  |  |  |
@@ -85,8 +83,6 @@ _Marked closed by RecSports at the last reading._
 
 ### Hot Tub (capacity 15)
 
-_Marked closed by RecSports at the last reading._
-
 | Hour | Mon–Thu | Fri | Sat | Sun |
 |---|---|---|---|---|
 | 6 AM | 1.3% |  |  |  |
@@ -108,8 +104,6 @@ _Marked closed by RecSports at the last reading._
 
 ### Lap Pool (capacity 24)
 
-_Marked closed by RecSports at the last reading._
-
 | Hour | Mon–Thu | Fri | Sat | Sun |
 |---|---|---|---|---|
 | 6 AM | 15% |  |  |  |
@@ -119,7 +113,7 @@ _Marked closed by RecSports at the last reading._
 | 10 AM | 21% | 14% |  |  |
 | 11 AM | 15% |  | 8.3% |  |
 | 12 PM | 13% |  |  |  |
-| 1 PM | 17% | 16% |  |  |
+| 1 PM | 18% | 16% |  |  |
 | 2 PM | 20% |  | 10% |  |
 | 3 PM | 19% | 22% |  | 27% |
 | 4 PM | 26% |  |  |  |
