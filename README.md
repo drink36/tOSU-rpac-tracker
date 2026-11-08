@@ -41,7 +41,7 @@ python -m http.server 8000 --directory docs
 Everything between the markers below is rewritten on every run; the rest of this file is safe to edit.
 
 <!-- tables:start -->
-_Average % full by hour: Autumn 2026 (Mon–Thu combined), data through Nov 8, 2026, 9:26 AM ET. A blank cell has fewer than 5 readings. [See every area on the site](https://drink36.github.io/tOSU-rpac-tracker/)._
+_Average % full by hour: Autumn 2026 (Mon–Thu combined), data through Nov 8, 2026, 1:58 PM ET. A blank cell has fewer than 5 readings. [See every area on the site](https://drink36.github.io/tOSU-rpac-tracker/)._
 
 ### Class Pool (capacity 32)
 
@@ -85,8 +85,6 @@ _Marked closed by RecSports at the last reading._
 
 ### Hot Tub (capacity 15)
 
-_Marked closed by RecSports at the last reading._
-
 | Hour | Mon–Thu | Fri | Sat | Sun |
 |---|---|---|---|---|
 | 6 AM | 1.3% |  |  |  |
@@ -96,7 +94,7 @@ _Marked closed by RecSports at the last reading._
 | 10 AM | 2.7% | 2.7% |  |  |
 | 11 AM | 4.7% |  | 6.7% |  |
 | 12 PM | 9.3% |  |  |  |
-| 1 PM | 11% | 10% |  |  |
+| 1 PM | 11% | 10% |  | 9.3% |
 | 2 PM | 12% |  | 15% |  |
 | 3 PM | 10% | 13% |  | 12% |
 | 4 PM | 23% |  |  |  |
@@ -108,8 +106,6 @@ _Marked closed by RecSports at the last reading._
 
 ### Lap Pool (capacity 24)
 
-_Marked closed by RecSports at the last reading._
-
 | Hour | Mon–Thu | Fri | Sat | Sun |
 |---|---|---|---|---|
 | 6 AM | 15% |  |  |  |
@@ -119,7 +115,7 @@ _Marked closed by RecSports at the last reading._
 | 10 AM | 21% | 14% |  |  |
 | 11 AM | 15% |  | 8.3% |  |
 | 12 PM | 13% |  |  |  |
-| 1 PM | 18% | 16% |  |  |
+| 1 PM | 18% | 16% |  | 27% |
 | 2 PM | 20% |  | 10% |  |
 | 3 PM | 19% | 21% |  | 27% |
 | 4 PM | 26% |  |  |  |
@@ -131,8 +127,6 @@ _Marked closed by RecSports at the last reading._
 
 ### Leisure Pool (capacity 40)
 
-_Marked closed by RecSports at the last reading._
-
 | Hour | Mon–Thu | Fri | Sat | Sun |
 |---|---|---|---|---|
 | 6 AM | 0.0% |  |  |  |
@@ -142,7 +136,7 @@ _Marked closed by RecSports at the last reading._
 | 10 AM | 0.0% | 0.0% |  |  |
 | 11 AM | 0.0% |  | 4.2% |  |
 | 12 PM | 0.0% |  |  |  |
-| 1 PM | 0.0% | 0.0% |  |  |
+| 1 PM | 0.0% | 0.0% |  | 7.5% |
 | 2 PM | 0.0% |  | 14% |  |
 | 3 PM | 0.0% | 0.0% |  | 14% |
 | 4 PM | 1.5% |  |  |  |
