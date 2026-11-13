@@ -41,7 +41,7 @@ python -m http.server 8000 --directory docs
 Everything between the markers below is rewritten on every run; the rest of this file is safe to edit.
 
 <!-- tables:start -->
-_Average % full by hour: Autumn 2026 (Mon–Thu combined), data through Nov 12, 2026, 5:40 PM ET. A blank cell has fewer than 5 readings. [See every area on the site](https://drink36.github.io/tOSU-rpac-tracker/)._
+_Average % full by hour: Autumn 2026 (Mon–Thu combined), data through Nov 12, 2026, 9:55 PM ET. A blank cell has fewer than 5 readings. [See every area on the site](https://drink36.github.io/tOSU-rpac-tracker/)._
 
 ### Class Pool (capacity 32)
 
@@ -62,7 +62,7 @@ _Average % full by hour: Autumn 2026 (Mon–Thu combined), data through Nov 12, 
 | 6 PM | 24% | 20% |  | 18% |
 | 7 PM | 16% |  | 12% |  |
 | 8 PM | 10% |  |  |  |
-| 9 PM | 5.9% |  |  |  |
+| 9 PM | 6.2% |  |  |  |
 
 ### Comp Pool (capacity 25)
 
