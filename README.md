@@ -41,11 +41,9 @@ python -m http.server 8000 --directory docs
 Everything between the markers below is rewritten on every run; the rest of this file is safe to edit.
 
 <!-- tables:start -->
-_Average % full by hour: Autumn 2026 (Mon–Thu combined), data through Nov 18, 2026, 3:33 AM ET. A blank cell has fewer than 5 readings. [See every area on the site](https://drink36.github.io/tOSU-rpac-tracker/)._
+_Average % full by hour: Autumn 2026 (Mon–Thu combined), data through Nov 18, 2026, 12:34 PM ET. A blank cell has fewer than 5 readings. [See every area on the site](https://drink36.github.io/tOSU-rpac-tracker/)._
 
 ### Class Pool (capacity 32)
-
-_Marked closed by RecSports at the last reading._
 
 | Hour | Mon–Thu | Fri | Sat | Sun |
 |---|---|---|---|---|
@@ -55,7 +53,7 @@ _Marked closed by RecSports at the last reading._
 | 9 AM | 11% |  |  |  |
 | 10 AM | 16% | 8.1% |  |  |
 | 11 AM | 7.5% |  | 12% |  |
-| 12 PM | 11% |  |  |  |
+| 12 PM | 12% |  |  |  |
 | 1 PM | 12% | 15% |  |  |
 | 2 PM | 14% |  | 14% |  |
 | 3 PM | 15% | 15% |  | 11% |
@@ -86,8 +84,6 @@ _Marked closed by RecSports at the last reading._
 
 ### Hot Tub (capacity 15)
 
-_Marked closed by RecSports at the last reading._
-
 | Hour | Mon–Thu | Fri | Sat | Sun |
 |---|---|---|---|---|
 | 6 AM | 1.3% |  |  |  |
@@ -96,7 +92,7 @@ _Marked closed by RecSports at the last reading._
 | 9 AM | 4.7% |  |  |  |
 | 10 AM | 2.7% | 2.7% |  |  |
 | 11 AM | 7.3% |  | 6.7% |  |
-| 12 PM | 9.3% |  |  |  |
+| 12 PM | 8.7% |  |  |  |
 | 1 PM | 10% | 11% |  | 9.3% |
 | 2 PM | 11% |  | 15% |  |
 | 3 PM | 10% | 13% |  | 17% |
@@ -109,8 +105,6 @@ _Marked closed by RecSports at the last reading._
 
 ### Lap Pool (capacity 24)
 
-_Marked closed by RecSports at the last reading._
-
 | Hour | Mon–Thu | Fri | Sat | Sun |
 |---|---|---|---|---|
 | 6 AM | 15% |  |  |  |
@@ -119,7 +113,7 @@ _Marked closed by RecSports at the last reading._
 | 9 AM | 15% |  |  |  |
 | 10 AM | 21% | 14% |  |  |
 | 11 AM | 15% |  | 8.3% |  |
-| 12 PM | 13% |  |  |  |
+| 12 PM | 14% |  |  |  |
 | 1 PM | 18% | 16% |  | 27% |
 | 2 PM | 20% |  | 10% |  |
 | 3 PM | 19% | 21% |  | 26% |
