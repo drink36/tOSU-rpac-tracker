@@ -41,7 +41,7 @@ python -m http.server 8000 --directory docs
 Everything between the markers below is rewritten on every run; the rest of this file is safe to edit.
 
 <!-- tables:start -->
-_Average % full by hour: Autumn 2026 (Mon–Thu combined), data through Nov 23, 2026, 7:11 AM ET. A blank cell has fewer than 5 readings. [See every area on the site](https://drink36.github.io/tOSU-rpac-tracker/)._
+_Average % full by hour: Autumn 2026 (Mon–Thu combined), data through Nov 23, 2026, 6:56 PM ET. A blank cell has fewer than 5 readings. [See every area on the site](https://drink36.github.io/tOSU-rpac-tracker/)._
 
 ### Class Pool (capacity 32)
 
@@ -66,8 +66,6 @@ _Average % full by hour: Autumn 2026 (Mon–Thu combined), data through Nov 23, 
 
 ### Comp Pool (capacity 25)
 
-_Marked closed by RecSports at the last reading._
-
 | Hour | Mon–Thu | Fri | Sat | Sun |
 |---|---|---|---|---|
 | 7 AM | 0.0% |  |  |  |
@@ -77,7 +75,7 @@ _Marked closed by RecSports at the last reading._
 | 3 PM | 0.0% |  |  |  |
 | 4 PM | 0.0% |  |  |  |
 | 5 PM | 4.0% |  |  |  |
-| 6 PM | 13% |  |  |  |
+| 6 PM | 12% |  |  |  |
 | 7 PM | 4.0% |  |  |  |
 | 8 PM | 0.0% |  |  |  |
 | 9 PM | 0.0% |  |  |  |
@@ -98,7 +96,7 @@ _Marked closed by RecSports at the last reading._
 | 3 PM | 10% | 13% |  | 17% |
 | 4 PM | 22% |  | 17% |  |
 | 5 PM | 19% | 21% |  | 23% |
-| 6 PM | 33% | 39% |  | 36% |
+| 6 PM | 31% | 39% |  | 36% |
 | 7 PM | 27% |  | 11% |  |
 | 8 PM | 35% |  |  |  |
 | 9 PM | 32% |  |  |  |
@@ -125,8 +123,6 @@ _Marked closed by RecSports at the last reading._
 | 9 PM | 20% |  |  |  |
 
 ### Leisure Pool (capacity 40)
-
-_Marked closed by RecSports at the last reading._
 
 | Hour | Mon–Thu | Fri | Sat | Sun |
 |---|---|---|---|---|
